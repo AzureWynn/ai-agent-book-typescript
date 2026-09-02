@@ -1,0 +1,40 @@
+# SearXNG 配置（供本地 web-search-agent 使用）
+# 基于官方默认配置，关键改动：
+# 1. 开启 JSON 输出（search.formats 加入 json），供 Agent 程序调用
+# 2. 关闭 rate limiter 和宣传，便于本地稳定测试
+
+use_default_settings: true
+
+general:
+  instance_name: "local-search"
+  privacypolicy_url: false
+  donate_url: false
+  contact_url: false
+  enable_metrics: false
+
+search:
+  formats:
+    - html
+    - json
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "zh-CN"
+  max_time: 10
+  requests:
+    timeout: 10
+
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "local-dev-secret-change-me"
+  limiter: false
+  public_instance: false
+  image_proxy: false
+  method: "POST"
+
+ui:
+  static_use_hash: true
+  default_theme: simple
+  theme_args:
+    simple_style: auto
+    simple_logo: "🔎"
