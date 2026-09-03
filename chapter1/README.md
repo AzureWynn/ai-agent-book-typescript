@@ -8,21 +8,26 @@
 
 | 实验 | 主题 | 状态 | 技术栈 |
 | --- | --- | --- | --- |
-| [context](context/README.md) | 实验 1-1：上下文感知 Agent 与消融实验 | ✅ 完成 | LangChain.js + Ollama |
-| [web-search-agent](web-search-agent/README.md) | 实验 1-2：联网搜索 Agent | ✅ 完成 | Ollama + SearXNG（本地） |
-| [function-calling](function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
+| [0.function-calling](0.function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
+| [1.context](1.context/README.md) | 实验 1-1：上下文感知 Agent 与消融实验 | ✅ 完成 | LangChain.js + Ollama |
+| [2.web-search-agent](2.web-search-agent/README.md) | 实验 1-2：联网搜索 Agent | ✅ 完成 | Ollama + SearXNG（本地） |
 
 ## 快速开始
 
 ```bash
+# 手写 Function Calling 协议
+cd 0.function-calling
+npm install
+npm run interactive
+
 # 上下文消融实验
-cd context
+cd 1.context
 npm install
 npm run interactive   # 交互模式
 npm run ablation      # 消融实验
 
 # 联网搜索 Agent
-cd web-search-agent
+cd 2.web-search-agent
 ./scripts/searxng.sh start        # 一键启动 SearXNG
 npm install
 npm run interactive

@@ -18,15 +18,17 @@
 ```
 ai-agent-book/
 ├── chapter1/                  # 第 1 章：深入理解 AI Agent
-│   ├── context/               # 实验 1-1：上下文感知 Agent 与消融实验（已完成）
+│   ├── 0.function-calling/    # 手写 Function Calling 协议（已完成）
+│   ├── 1.context/             # 实验 1-1：上下文感知 Agent 与消融实验（已完成）
 │   │   ├── src/               # TypeScript 源码
 │   │   ├── fixtures/          # 样例 PDF
 │   │   ├── README.md          # 章节实验说明（含流程图与学习路径）
 │   │   └── package.json       # 独立依赖
-│   └── web-search-agent/      # 实验 1-2：联网搜索 Agent（已完成）
-│       ├── src/               # ReAct 搜索循环
-│       ├── scripts/           # SearXNG 一键启动
-│       └── README.md
+│   ├── 2.web-search-agent/    # 实验 1-2：联网搜索 Agent（已完成）
+│   │   ├── src/               # ReAct 搜索循环
+│   │   ├── scripts/           # SearXNG 一键启动
+│   │   └── README.md
+│   └── README.md              # 章节索引
 └── ...
 ```
 
@@ -34,21 +36,21 @@ ai-agent-book/
 
 | 章节 | 实验 | 主题 | 状态 | 说明 |
 | --- | --- | --- | --- | --- |
-| [chapter1](chapter1/README.md) | [context](chapter1/context/README.md) | 上下文感知 Agent 与消融实验 | ✅ 完成 | ReAct 循环 + 5 种消融模式 + 结果判定 |
-| [chapter1](chapter1/README.md) | [web-search-agent](chapter1/web-search-agent/README.md) | 联网搜索 Agent | ✅ 完成 | Ollama + SearXNG，ReAct + Function Calling |
-| [chapter1](chapter1/README.md) | [function-calling](chapter1/function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
+| [chapter1](chapter1/README.md) | [1.context](chapter1/1.context/README.md) | 上下文感知 Agent 与消融实验 | ✅ 完成 | ReAct 循环 + 5 种消融模式 + 结果判定 |
+| [chapter1](chapter1/README.md) | [2.web-search-agent](chapter1/2.web-search-agent/README.md) | 联网搜索 Agent | ✅ 完成 | Ollama + SearXNG，ReAct + Function Calling |
+| [chapter1](chapter1/README.md) | [0.function-calling](chapter1/0.function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
 
 ## 快速开始
 
 ```bash
 # 实验 1-1：上下文消融实验（交互模式）
-cd chapter1/context
+cd chapter1/1.context
 npm install
 npm run interactive   # 对话 + 内置示例任务（等价: npx tsx src/main.ts interactive）
 npm run ablation      # 5 种消融模式
 
 # 实验 1-2：联网搜索 Agent
-cd chapter1/web-search-agent
+cd chapter1/2.web-search-agent
 ./scripts/searxng.sh start        # 一键启动 SearXNG（需 Docker）
 npm install
 npm run interactive
