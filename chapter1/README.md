@@ -11,6 +11,7 @@
 | [0.function-calling](0.function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
 | [1.context](1.context/README.md) | 实验 1-1：上下文感知 Agent 与消融实验 | ✅ 完成 | LangChain.js + Ollama |
 | [2.web-search-agent](2.web-search-agent/README.md) | 实验 1-2：联网搜索 Agent | ✅ 完成 | Ollama + SearXNG（本地） |
+| [3.search-codegen](3.search-codegen/README.md) | 实验 1-3：托管工具 Agent（web_search + code_interpreter） | ✅ 完成 | Ollama + SearXNG（本地仿真） |
 
 ## 快速开始
 
@@ -31,6 +32,12 @@ cd 2.web-search-agent
 ./scripts/searxng.sh start        # 一键启动 SearXNG
 npm install
 npm run interactive
+
+# 托管工具 Agent（依赖 2.web-search-agent 的 SearXNG）
+cd 3.search-codegen
+npm install
+npm run protocol-demo             # 协议演示（推荐先看）
+npm run scenario-asean            # 东盟首都最近距离
 ```
 
 > 各实验使用不同的 LLM 后端，`.env` 各自独立，互不影响。

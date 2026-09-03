@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1（上下文感知 Agent 与消融实验）、实验 1-2（联网搜索 Agent），及手写 Function Calling 练习。
+> 目前进度：完成第 1 章实验 1-1（上下文感知 Agent 与消融实验）、实验 1-2（联网搜索 Agent）、实验 1-3（托管工具 Agent），及手写 Function Calling 练习。
 
 ## 目录结构
 
@@ -28,6 +28,9 @@ ai-agent-book/
 │   │   ├── src/               # ReAct 搜索循环
 │   │   ├── scripts/           # SearXNG 一键启动
 │   │   └── README.md
+│   ├── 3.search-codegen/      # 实验 1-3：托管工具 Agent（已完成）
+│   │   ├── src/               # Responses 协议 + 托管工具仿真
+│   │   └── README.md
 │   └── README.md              # 章节索引
 └── ...
 ```
@@ -39,6 +42,7 @@ ai-agent-book/
 | [chapter1](chapter1/README.md) | [0.function-calling](chapter1/0.function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
 | [chapter1](chapter1/README.md) | [1.context](chapter1/1.context/README.md) | 上下文感知 Agent 与消融实验 | ✅ 完成 | ReAct 循环 + 5 种消融模式 + 结果判定 |
 | [chapter1](chapter1/README.md) | [2.web-search-agent](chapter1/2.web-search-agent/README.md) | 联网搜索 Agent | ✅ 完成 | Ollama + SearXNG，ReAct + Function Calling |
+| [chapter1](chapter1/README.md) | [3.search-codegen](chapter1/3.search-codegen/README.md) | 托管工具 Agent | ✅ 完成 | 本地仿真 Responses 协议（web_search + code_interpreter） |
 
 ## 快速开始
 
