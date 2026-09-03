@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1（上下文感知 Agent 与消融实验）、实验 1-2（联网搜索 Agent）、实验 1-3（托管工具 Agent），及手写 Function Calling 练习。
+> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习。
 
 ## 目录结构
 
@@ -31,6 +31,9 @@ ai-agent-book/
 │   ├── 3.search-codegen/      # 实验 1-3：托管工具 Agent（已完成）
 │   │   ├── src/               # Responses 协议 + 托管工具仿真
 │   │   └── README.md
+│   ├── 4.image-gen-workflow/  # 实验 1-4：文生图工作流（已完成）
+│   │   ├── src/               # 改写节点(Ollama) + 可插拔生图
+│   │   └── README.md
 │   └── README.md              # 章节索引
 └── ...
 ```
@@ -43,6 +46,7 @@ ai-agent-book/
 | [chapter1](chapter1/README.md) | [1.context](chapter1/1.context/README.md) | 上下文感知 Agent 与消融实验 | ✅ 完成 | ReAct 循环 + 5 种消融模式 + 结果判定 |
 | [chapter1](chapter1/README.md) | [2.web-search-agent](chapter1/2.web-search-agent/README.md) | 联网搜索 Agent | ✅ 完成 | Ollama + SearXNG，ReAct + Function Calling |
 | [chapter1](chapter1/README.md) | [3.search-codegen](chapter1/3.search-codegen/README.md) | 托管工具 Agent | ✅ 完成 | 本地仿真 Responses 协议（web_search + code_interpreter） |
+| [chapter1](chapter1/README.md) | [4.image-gen-workflow](chapter1/4.image-gen-workflow/README.md) | 文生图工作流 vs 原生 | ✅ 完成 | 改写节点(Ollama) + 可插拔生图 |
 
 ## 快速开始
 
