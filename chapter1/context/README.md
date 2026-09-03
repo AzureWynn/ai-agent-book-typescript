@@ -99,14 +99,14 @@ chapter1/
 
 ```mermaid
 flowchart TD
-    A[接收用户任务] --> B[组装消息:<br/>系统提示词 + 历史]
+    A[接收用户任务] --> B["组装消息: 系统提示词 + 历史"]
     B --> C[调用 LLM]
-    C --> D{返回了 tool_calls?}
-    D -- 是 --> E[执行对应工具]
+    C --> D{"返回了 tool_calls?"}
+    D -->|是| E[执行对应工具]
     E --> F[工具结果写入历史]
     F --> B
-    D -- 否 --> G[得到最终答案]
-    G --> H[返回 answer + 迭代数 + 工具调用数]
+    D -->|否| G[得到最终答案]
+    G --> H["返回 answer + 迭代数 + 工具调用数"]
 ```
 
 如果循环超过 `maxIterations = 10` 次仍没停下，就视为"达到最大迭代次数"，`finalAnswer = null`。
@@ -140,11 +140,14 @@ flowchart LR
         C[withToolCalls]
         D[withToolResults]
     end
-    A & B & C & D -- 全开 --> FULL
-    A -- 关 --> NO_HISTORY
-    B -- 关 --> NO_REASONING
-    C -- 关 --> NO_TOOL_CALLS
-    D -- 关 --> NO_TOOL_RESULTS
+    A -->|全开| FULL
+    B -->|全开| FULL
+    C -->|全开| FULL
+    D -->|全开| FULL
+    A -->|关| NO_HISTORY
+    B -->|关| NO_REASONING
+    C -->|关| NO_TOOL_CALLS
+    D -->|关| NO_TOOL_RESULTS
 ```
 
 ### 4.4 结果怎么判定（重要！）
@@ -153,13 +156,13 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    R[单次实验结果] --> C{有没有最终答案?<br/>finalAnswer 非空}
-    C -- 否 --> O1[结局: 无终止回复]
-    C -- 是 --> G{答案里的数字<br/>有没有来源?}
-    G -- 有观察/有依据 --> T{通过数值规则?<br/>rubric}
-    G -- 无观察 却有任务外的数字 --> O2[结局: 编造数字]
-    T -- 是 --> O3[结局: 答对]
-    T -- 否 --> O4[结局: 答错]
+    R[单次实验结果] --> C{"有最终答案?<br/>finalAnswer 非空"}
+    C -->|否| O1[结局: 无终止回复]
+    C -->|是| G{"答案里的数字<br/>有来源?"}
+    G -->|有观察或依据| T{"通过数值规则?<br/>rubric"}
+    G -->|无观察却有任务外数字| O2[结局: 编造数字]
+    T -->|是| O3[结局: 答对]
+    T -->|否| O4[结局: 答错]
 ```
 
 **三者的区别：**
@@ -185,11 +188,11 @@ sequenceDiagram
     M->>A: runAblationStudy()
     loop 遍历 5 种模式
         A->>A: 取 ABLATION_CONFIGS[mode]
-        A->>G: new FinancialAgent(config) + run(task)
+        A->>G: 创建 Agent 并 run(task)
         G->>T: 循环中调用工具
-        T-->>G: 工具结果（或隐藏占位符）
-        G-->>A: { finalAnswer, toolResultTexts, ... }
-        A->>A: 算 completed / taskSuccess / grounding / outcome
+        T-->>G: 工具结果或隐藏占位符
+        G-->>A: 返回结果
+        A->>A: 判定 completed / taskSuccess / grounding
     end
     A-->>M: 汇总表格
 ```

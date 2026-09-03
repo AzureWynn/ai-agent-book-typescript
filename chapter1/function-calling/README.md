@@ -42,6 +42,55 @@ function-calling/
 
 ## 核心实现（agent.ts）
 
+### 0. 总览：一次调用的完整流程
+
+以下流程图展示 `agent.run("15*23 等于多少？")` 时，代码、Ollama、工具三者如何协作：
+
+```mermaid
+flowchart TD
+    U[用户输入] --> A[agent.run]
+    A --> B["组装 messages: system + user"]
+    B --> C["POST /api/chat，body 带 tools"]
+    C --> D{"模型返回 tool_calls?"}
+    D -->|否| E["答案 = response.content，结束"]
+    D -->|是| F["assistant 消息存入 messages"]
+    F --> G["执行工具 findTool(name).execute"]
+    G --> H["结果回填 role:tool + tool_call_id"]
+    H --> C
+    E --> I[返回 answer]
+```
+
+**对应到 `agent.ts` 的 `run()` 主循环：** `B → C` 是 `chat()`；`D` 是 `if (!response.tool_calls ...)` 分支；`F → G → H` 是 `for (const call of response.tool_calls)` 循环。
+
+### 0.1 时序图：带完整消息历史的视角
+
+下图展示**每一轮发给 Ollama 的 `messages` 数组如何增长**——这是理解 Function Calling 的关键：历史里同时存了"带 tool_calls 的 assistant 消息"和"对应的 tool 结果"，模型才能多轮推理不混乱。
+
+```mermaid
+sequenceDiagram
+    participant U as 用户
+    participant A as agent.ts
+    participant O as Ollama
+    participant T as tools.ts
+
+    U->>A: run("15*23 等于多少？")
+    A->>A: messages = [system, user]
+    Note over A: 请求带 tools 描述
+    A->>O: POST /api/chat
+    O-->>A: tool_calls: [calculator]
+    A->>A: assistant 消息存入 messages
+    Note over A: 执行工具
+    A->>T: calculator.execute(15*23)
+    T-->>A: 计算结果: 345
+    Note over A: 结果回填 tool role
+    A->>A: push role:tool + tool_call_id
+    A->>O: POST /api/chat (已含 tool 结果)
+    O-->>A: content: "15*23 等于 345"
+    A-->>U: 最终答案
+```
+
+> 注意第 2 次请求的 `messages` 里多了两条：`assistant(tool_calls)` 和 `tool(结果)`。**`tool_call_id` 必须与模型返回的 `id` 一致**，否则模型无法把结果对应到上一次的调用。
+
 ### 1. 请求：把工具描述给模型
 
 ```ts
@@ -84,11 +133,14 @@ messages.push({
 
 ### 主循环（思考-行动-观察）
 
+对应第 0 节的流程图，代码骨架如下：
+
 ```
 循环直到 maxIterations:
-  1. chat() 发请求（带 tools）
-  2. 模型没返回 tool_calls → 视为最终答案，结束
-  3. 模型返回 tool_calls → 执行每个工具 → 结果回填 tool role → 继续循环
+  1. chat() 发请求（带 tools）           → 模型"思考"
+  2. 模型没返回 tool_calls → 最终答案     → 结束
+  3. 模型返回 tool_calls → 执行工具
+     → 结果回填 tool role → 继续循环      → "行动 + 观察"
 ```
 
 ## 踩过的坑（值得记录）
