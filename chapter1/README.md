@@ -10,6 +10,7 @@
 | --- | --- | --- | --- |
 | [context](context/README.md) | 实验 1-1：上下文感知 Agent 与消融实验 | ✅ 完成 | LangChain.js + Ollama |
 | [web-search-agent](web-search-agent/README.md) | 实验 1-2：联网搜索 Agent | ✅ 完成 | Ollama + SearXNG（本地） |
+| [function-calling](function-calling/README.md) | 手写 Function Calling 协议 | ✅ 完成 | 纯 fetch + Ollama（无框架） |
 
 ## 快速开始
 

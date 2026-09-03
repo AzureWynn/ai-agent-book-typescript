@@ -1,0 +1,17 @@
+{
+  "name": "function-calling",
+  "version": "1.0.0",
+  "description": "Chapter 1: hand-written Function Calling protocol with Ollama (no LangChain)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "interactive": "tsx src/main.ts interactive",
+    "single": "tsx src/main.ts single",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
