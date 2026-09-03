@@ -7,7 +7,8 @@
  * 3. 执行工具，结果以 role:"tool" 回填 → 模型看结果继续推理
  */
 
-import { tools, findTool } from './tools.js';
+import { tools, type Tool } from './tools.js';
+import { loadSkill, wrapSkill, type LoadedSkill } from './skills.js';
 
 // ---------- 消息类型（简化版 LangChain Message） ----------
 export type Role = 'system' | 'user' | 'assistant' | 'tool';
@@ -41,6 +42,8 @@ export interface AgentOptions {
   model?: string;
   maxIterations?: number;
   verbose?: boolean;
+  /** 注入的 skill（已加载的包），不传则用默认 SYSTEM_PROMPT + 全局工具 */
+  skill?: LoadedSkill;
 }
 
 export interface AgentRunResult {
@@ -61,16 +64,62 @@ export class FunctionCallingAgent {
   private model: string;
   private maxIterations: number;
   private verbose: boolean;
+  private systemPrompt: string;
+  /** 模型可用的工具 = 全局工具 + skill 专属工具 */
+  private allTools: Tool[];
+  /** 当前 skill 声明允许使用的工具（官方字段 allowed-tools；运行时据此授权） */
+  private allowedTools: Set<string>;
 
   constructor(options: AgentOptions = {}) {
     this.baseUrl = (options.baseUrl ?? process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434').replace(/\/+$/, '');
     this.model = options.model ?? process.env.MODEL_NAME ?? 'gemma4:latest';
     this.maxIterations = options.maxIterations ?? 5;
     this.verbose = options.verbose ?? true;
+
+    // 注入 skill：方法论拼进 system prompt，专属工具并入工具列表，allowed-tools 授权
+    let prompt = SYSTEM_PROMPT;
+    this.allTools = [...tools];
+    this.allowedTools = new Set();
+    if (options.skill) {
+      prompt = `${prompt}\n\n${wrapSkill(options.skill.instruction)}`;
+      this.allowedTools = new Set(options.skill.allowedTools);
+      if (options.skill.tools.length > 0) {
+        this.allTools.push(...options.skill.tools);
+        this.log(`🗂️ 已加载 skill "${options.skill.name}" 的专属工具: ` +
+          options.skill.tools.map((t) => t.definition.function.name).join(', '));
+      }
+    }
+    this.systemPrompt = prompt;
+  }
+
+  /** 异步创建：先加载 skill 包（含动态加载专属工具），再构造 Agent */
+  static async create(options: AgentOptions & { skillName?: string } = {}): Promise<FunctionCallingAgent> {
+    const { skillName, ...rest } = options;
+    let skill: LoadedSkill | undefined;
+    if (skillName) {
+      const loaded = await loadSkill(skillName);
+      if (loaded) {
+        skill = loaded;
+      } else {
+        console.warn(`⚠️ 未找到 skill "${skillName}"，使用默认配置`);
+      }
+    }
+    return new FunctionCallingAgent({ ...rest, skill });
   }
 
   private log(...args: unknown[]): void {
     if (this.verbose) console.log(...args);
+  }
+
+  /** 运行时授权检查：工具是否允许执行（对齐 allowed-tools 语义） */
+  canExecute(name: string): { allowed: boolean; reason?: string } {
+    const tool = this.allTools.find((t) => t.definition.function.name === name);
+    if (!tool) return { allowed: false, reason: `未注册工具 ${name}` };
+    // 无 skill（allowedTools 为空）→ 放行所有已注册工具；有 skill → 只放行声明允许的
+    if (this.allowedTools.size > 0 && !this.allowedTools.has(name)) {
+      return { allowed: false, reason: `skill 的 allowed-tools 未包含 ${name}（声明为: ${[...this.allowedTools].join(' ')}）` };
+    }
+    return { allowed: true };
   }
 
   /** 发送一轮请求到 Ollama，拿到模型回复 */
@@ -78,7 +127,7 @@ export class FunctionCallingAgent {
     const body = {
       model: this.model,
       messages,
-      tools: tools.map((t) => t.definition), // 关键：把工具描述给模型
+      tools: this.allTools.map((t) => t.definition), // 关键：把工具描述给模型
       temperature: 0,
       stream: false, // 一次性返回完整 JSON，而非 NDJSON 流
     };
@@ -107,10 +156,19 @@ export class FunctionCallingAgent {
     }
     this.log(`🔧 调用工具: ${name}  参数=${JSON.stringify(args)}`);
 
-    const tool = findTool(name);
+    const tool = this.allTools.find((t) => t.definition.function.name === name);
     if (!tool) {
       return `错误：未找到工具 ${name}`;
     }
+
+    // 【运行时授权】skill 的 allowed-tools 未包含该工具 → 拒绝执行
+    const check = this.canExecute(name);
+    if (!check.allowed) {
+      const msg = `⛔ 无权调用工具 ${name}：${check.reason}`;
+      this.log(msg);
+      return msg;
+    }
+
     try {
       return await tool.execute(args);
     } catch (e) {
@@ -123,7 +181,7 @@ export class FunctionCallingAgent {
    */
   async run(userInput: string): Promise<AgentRunResult> {
     const messages: Message[] = [
-      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'system', content: this.systemPrompt },
       { role: 'user', content: userInput },
     ];
 

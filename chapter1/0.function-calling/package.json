@@ -7,6 +7,9 @@
   "scripts": {
     "interactive": "tsx src/main.ts interactive",
     "single": "tsx src/main.ts single",
+    "skill": "tsx src/main.ts skill",
+    "skill-demo": "tsx src/main.ts skill-demo",
+    "advanced-demo": "tsx src/main.ts advanced-demo",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
