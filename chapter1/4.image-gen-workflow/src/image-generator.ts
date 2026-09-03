@@ -4,10 +4,7 @@
  * 本实验的核心学习点是"工作流编排 + 改写节点行为"，不依赖真图。
  * 因此生图节点做成可插拔：
  * - 默认 PlaceholderGenerator：不真出图，记录 prompt 并返回模拟元数据
- * - 预留接真实现的入口：实现 ImageGenerator 接口即可（见文件底部说明）
- *
- * 官方用通义万相 wan2.2-t2i-flash（DashScope 托管）；
- * 本地可选 Z-Image-Turbo（diffusers 开源模型，M4 可跑）。
+ * - 有生图后端时，实现 ImageGenerator 接口并注册到 createImageGenerator 即可
  */
 
 export interface GeneratedImage {
@@ -50,35 +47,12 @@ export class PlaceholderGenerator implements ImageGenerator {
   }
 }
 
-/** 工厂：按配置选择生图器（当前只有占位，预留真实实现） */
+/** 工厂：按配置选择生图器（当前只有占位） */
 export function createImageGenerator(kind: string = 'placeholder'): ImageGenerator {
   switch (kind) {
     case 'placeholder':
       return new PlaceholderGenerator();
-    // 预留：真本地生图（Z-Image-Turbo via diffusers，需另行实现 + pip 依赖）
-    // case 'zimage':
-    //   return new ZImageGenerator({ modelPath: process.env.ZIMAGE_MODEL_PATH });
     default:
       throw new Error(`未知生图器: ${kind}`);
   }
 }
-
-/**
- * ── 如何接入真实本地生图（Z-Image-Turbo）──
- *
- * 参考官方用通义万相（DashScope 托管 API）；想本地真生图可用 Z-Image-Turbo：
- *
- * ```ts
- * // 需要：pip install diffusers torch transformers  + 拉权重
- * // 实现 ImageGenerator 接口即可：
- * export class ZImageGenerator implements ImageGenerator {
- *   readonly name = 'z-image-turbo';
- *   async generate(prompt, negativePrompt) {
- *     // 用 diffusers + MPS 加载 Tongyi-MAI/Z-Image-Turbo，
- *     // pipeline(prompt) → 保存图片到 outputs/<run_id>/images/xx.png
- *     // 返回 { ok: true, path, actualPrompt: prompt, model: 'Z-Image-Turbo' }
- *   }
- * }
- * // 然后在 createImageGenerator 里注册 'zimage' 分支即可
- * ```
- */

@@ -105,7 +105,6 @@ async function main(): Promise<void> {
     for (const req of list) await runOne(req);
     console.log('\n' + '─'.repeat(64));
     console.log('提示：生图节点是占位实现（未真出图）。');
-    console.log('接入真本地生图（Z-Image-Turbo via diffusers）见 src/image-generator.ts 底部说明。');
   } else {
     console.log('用法:');
     console.log('  npm run workflow             - 全部 5 句需求跑工作流路线');

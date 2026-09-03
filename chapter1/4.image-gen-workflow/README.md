@@ -2,7 +2,7 @@
 
 对应官方实验 1-4：同一句口语化需求走两条路线，对照"工作流（改写→生图）"与"原生（直接出图）"。
 
-本仓库为 **TypeScript 本地仿真版**：改写节点用 **Ollama gemma4**（真实跑），生图节点做成**可插拔**（默认占位，预留 Z-Image-Turbo 接入）。无需云端 API Key。
+本仓库为 **TypeScript 本地仿真版**：改写节点用 **Ollama gemma4**（真实跑），生图节点做成**可插拔**（默认占位）。无需云端 API Key。
 
 ## 这个实验在学什么
 
@@ -14,7 +14,7 @@
 flowchart TD
     subgraph 工作流路线 workflow
         W1[口语化需求] --> W2["节点1: 提示词改写 LLM<br/>输出 SD 风格 JSON"]
-        W2 --> W3["节点2: 文生图模型<br/>wan2.2 / Z-Image"]
+        W2 --> W3["节点2: 文生图模型<br/>可插拔（默认占位）"]
         W3 --> W4[图片]
         W2 -.改写产物.-> W5["prompt / negative_prompt<br/>/ style_notes"]
     end
@@ -50,7 +50,7 @@ npm run rewrite -- "一句话"      # 只测改写节点
 │   ├── main.ts            # 5 句需求 + 对照分析
 │   ├── pipeline.ts        # 工作流路线编排（改写→生图，代码写死）
 │   ├── rewriter.ts        # 改写节点（Ollama，忠实还原官方 REWRITE_SYSTEM_PROMPT）
-│   └── image-generator.ts # 生图节点可插拔接口（占位 + 预留 Z-Image）
+│   └── image-generator.ts # 生图节点可插拔接口（占位 + 接口）
 └── .env.example           # Ollama 配置
 ```
 
@@ -78,10 +78,10 @@ export interface ImageGenerator {
   generate(prompt: string, negativePrompt: string): Promise<GeneratedImage>;
 }
 // 默认 PlaceholderGenerator：不真出图，记录 prompt + 模拟元数据
-// 接入真实现：实现 ImageGenerator 接口即可（见文件底部 Z-Image 接入说明）
+// 接入真实现：实现 ImageGenerator 接口，在 createImageGenerator 注册即可
 ```
 
-**为什么可插拔？** 本实验教学价值在"工作流编排 + 改写行为"，不依赖真图。占位实现让你今天就能学到核心；以后有生图后端（或装 diffusers + Z-Image-Turbo）时，填一个实现类即可，流程代码不用动。
+**为什么可插拔？** 本实验教学价值在"工作流编排 + 改写行为"，不依赖真图。占位实现让你今天就能学到核心；以后有生图后端时，填一个实现类即可，流程代码不用动。
 
 ### 3. 工作流编排（pipeline.ts）
 
@@ -222,21 +222,8 @@ style_notes:  我强调了"摄影级真实感"和"金色时刻"的光影效果�
 - **Ollama 必须已运行**：`OLLAMA_BASE_URL` 连不上会直接报 `Ollama HTTP 000`。先 `ollama serve`，再 `ollama pull gemma4:latest`（或改 `.env` 的 `MODEL_NAME` 用你本地已有的模型，如 `llama3.2`）。
 - **改写输出有随机性**：即使 `temperature: 0`，gemma4 每次措辞也会有差异（换词但语义一致）。README 里的输出是"代表性记录"，不是精确复现。
 - **忠实度是启发式判断**：`main.ts` 用关键词正则检测（如 `melancholic`/`weary` 判"丧"），LLM 偶尔会换同义词导致误判，看真实输出时以 `style_notes` 的自我说明为准。
-- **生图节点默认占位**：不真出图是设计使然（见下文接入说明），学的是"编排 + 改写"，不是出图质量。
-
-## 接入真本地生图（Z-Image-Turbo，可选）
-
-官方用通义万相（DashScope 托管 API）。想本地真生图，可用开源 **Z-Image-Turbo**（Apache-2.0，M4 16GB VRAM 可跑）：
-
-```bash
-# 需 Python + diffusers + torch(MPS) + 拉权重
-pip install diffusers torch transformers
-```
-
-然后在 `src/image-generator.ts` 里实现 `ZImageGenerator implements ImageGenerator`（用 diffusers 加载 `Tongyi-MAI/Z-Image-Turbo`，把 prompt 转成图），并在 `createImageGenerator` 注册。流程代码（pipeline/main）**无需改动**——这就是可插拔接口的意义。
+- **生图节点默认占位**：不真出图是设计使然，学的是"编排 + 改写"，不是出图质量。
 
 ## 参考
 
 - 官方实验：https://github.com/bojieli/ai-agent-book/tree/main/chapter1/image-gen-workflow
-- Z-Image 仓库：https://github.com/Tongyi-MAI/Z-Image（Apache-2.0，Z-Image-Turbo 8 NFE 蒸馏版）
-- 通义万相：https://help.aliyun.com/zh/model-studio/wanxiang
