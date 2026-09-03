@@ -233,6 +233,8 @@ Agent 主循环**看不到**这些执行过程，只收到封装好的记录。
 
 **它和 protocol-demo 的区别：** walkthrough 每步打印"这步在做什么 + 为什么"（像讲课），protocol-demo 展示完整闭环（像总结）。建议先 walkthrough 再 protocol-demo。
 
+> 📝 另有配套讲解笔记 [walkthrough.md](walkthrough.md)（托管工具协议的深度解析），可对照阅读。
+
 ### 实例 1：protocol-demo —— 协议闭环（成功）
 
 `npm run protocol-demo` 手动驱动完整闭环，实测输出：
