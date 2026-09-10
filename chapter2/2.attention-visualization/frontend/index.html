@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Attention Visualization · 实验 2-2</title>
+<style>
+  body { font-family: ui-monospace, Menlo, monospace; margin: 20px; color: #222; }
+  h1 { font-size: 18px; }
+  #tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  #tabs button { font-family: inherit; font-size: 12px; padding: 6px 10px; border: 1px solid #ccc;
+    border-radius: 4px; background: #fff; cursor: pointer; }
+  #tabs button.active { background: #222; color: #fff; }
+  #stats { font-size: 12px; background: #f7f7f7; padding: 10px 14px; border-radius: 6px; margin: 10px 0; line-height: 1.7; }
+  #heatmap { max-width: 100%; }
+  canvas { border: 1px solid #eee; }
+  #query { font-size: 12px; color: #666; }
+  #refresh { position: fixed; right: 20px; top: 20px; font-family: inherit; font-size: 12px;
+    padding: 6px 12px; border: 1px solid #888; border-radius: 4px; background: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<button id="refresh">↻ 刷新</button>
+<h1>Attention Visualization <span style="font-weight:normal;font-size:12px;color:#888">实验 2-2 注意力机制可视化</span></h1>
+<p id="query"></p>
+<div id="tabs"></div>
+<div id="stats"></div>
+<canvas id="heatmap"></canvas>
+
+<script src="app.js"></script>
+</body>
+</html>

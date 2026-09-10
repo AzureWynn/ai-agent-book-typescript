@@ -1,0 +1,13 @@
+.env
+node_modules/
+dist/
+*.tsbuildinfo
+.venv/
+__pycache__/
+.attention_tmp.json
+frontend/data/
+trajectories/
+runs/
+attention_heatmap.html
+compare_*.html
+*.png

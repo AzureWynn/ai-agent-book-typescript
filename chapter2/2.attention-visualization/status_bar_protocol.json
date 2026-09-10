@@ -1,0 +1,36 @@
+{
+  "experiment_id": "2-8",
+  "protocol_version": "1.0.0",
+  "model": "Qwen/Qwen3-0.6B",
+  "device": "auto",
+  "matched_trials": 3,
+  "generation": {
+    "max_new_tokens": 128,
+    "temperature": 0.6,
+    "top_p": 0.9,
+    "seeds": [27, 41, 73]
+  },
+  "scenario": {
+    "company": "Xfinity",
+    "maximum_calls": 3,
+    "user_query": "Can you call Xfinity one more time to chase the refund?",
+    "distractor_searches": 4
+  },
+  "arms": {
+    "without_status_bar": "full trajectory only",
+    "with_status_bar": "the same trajectory followed by the XML status block"
+  },
+  "attention": {
+    "layer": -1,
+    "heads": "mean",
+    "query_rows": "all generated response tokens",
+    "regions": [
+      "three historical Xfinity phone-call events",
+      "interleaved web-search distractors",
+      "agent_status block",
+      "latest user query"
+    ],
+    "heatmap_trial": 1
+  },
+  "hypothesis": "the status arm refuses a fourth call more reliably and places more response attention on the explicit 3/3 state than the control can place on the distributed call history"
+}

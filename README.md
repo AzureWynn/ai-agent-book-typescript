@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习。
+> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1（本地 LLM 服务部署与工具调用）、2-2（注意力机制可视化）与 2-8（状态栏对照）。
 
 ## 目录结构
 
@@ -35,6 +35,15 @@ ai-agent-book/
 │   │   ├── src/               # 改写节点(Ollama) + 可插拔生图
 │   │   └── README.md
 │   └── README.md              # 章节索引
+├── chapter2/                  # 第 2 章：上下文工程
+│   ├── 1.local-llm-serving/   # 实验 2-1：本地 LLM 服务部署与工具调用（已完成）
+│   │   ├── src/               # Ollama 原生工具调用 + 流式 ReAct
+│   │   └── README.md
+│   ├── 2.attention-visualization/  # 实验 2-2：注意力机制可视化（已完成）
+│   │   ├── src/               # TS 编排 + SVG 热力图 + 前端
+│   │   ├── py/                # transformers 注意力提取助手
+│   │   └── README.md
+│   └── README.md              # 章节索引
 └── ...
 ```
 
@@ -47,6 +56,8 @@ ai-agent-book/
 | [chapter1](chapter1/README.md) | [2.web-search-agent](chapter1/2.web-search-agent/README.md) | 联网搜索 Agent | ✅ 完成 | Ollama + SearXNG，ReAct + Function Calling |
 | [chapter1](chapter1/README.md) | [3.search-codegen](chapter1/3.search-codegen/README.md) | 托管工具 Agent | ✅ 完成 | 本地仿真 Responses 协议（web_search + code_interpreter） |
 | [chapter1](chapter1/README.md) | [4.image-gen-workflow](chapter1/4.image-gen-workflow/README.md) | 文生图工作流 vs 原生 | ✅ 完成 | 改写节点(Ollama) + 可插拔生图 |
+| [chapter2](chapter2/README.md) | [1.local-llm-serving](chapter2/1.local-llm-serving/README.md) | 本地 LLM 服务部署与工具调用 | ✅ 完成 | Ollama 原生工具调用 + 流式 ReAct |
+| [chapter2](chapter2/README.md) | [2.attention-visualization](chapter2/2.attention-visualization/README.md) | 注意力机制可视化（2-2）与状态栏对照（2-8） | ✅ 完成 | TS 编排 + transformers 提取 + SVG 热力图 |
 
 ## 快速开始
 
@@ -62,6 +73,19 @@ cd chapter1/2.web-search-agent
 ./scripts/searxng.sh start        # 一键启动 SearXNG（需 Docker）
 npm install
 npm run interactive
+
+# 实验 2-1：本地 LLM 服务部署与工具调用
+cd chapter2/1.local-llm-serving
+npm install
+npm run demo                      # 跑第一个样例任务（快速验证）
+npm run single -- "你的任务"       # 单任务模式（流式）
+npm run interactive               # 交互模式
+
+# 实验 2-2：注意力机制可视化（需 Python 3.14 + torch，首次下载 qwen3-0.6b）
+cd chapter2/2.attention-visualization
+npm run setup                     # uv venv + pip install torch transformers
+npm run heatmap                   # 默认提示词热力图 + sink/因果三角统计
+npm run heatmap -- --compare-layers 0 -1   # 第 0 层 vs 最后一层对比
 ```
 
 ## 技术栈
@@ -69,6 +93,8 @@ npm run interactive
 - Node.js ≥ 22 + TypeScript
 - 实验 1-1：LangChain.js（`@langchain/ollama`）+ 本地 LLM（Ollama）
 - 实验 1-2：LangChain.js + Ollama + SearXNG（本地搜索）
+- 实验 2-1：Ollama 原生 `/api/chat` 工具调用 + 流式 ReAct（无框架）
+- 实验 2-2：TS 编排 + Python(transformers) 提取注意力 + 零依赖 SVG/前端
 - 详细依赖见各实验 `package.json`
 
 ## 与官方版的差异说明

@@ -1,0 +1,20 @@
+{
+  "name": "attention-visualization",
+  "version": "1.0.0",
+  "description": "Chapter 2-2: attention mechanism visualization, TS orchestration + Python(transformers) attention extraction",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "heatmap": "tsx src/main.ts heatmap",
+    "trajectories": "tsx src/main.ts trajectories",
+    "statusbar": "tsx src/main.ts statusbar",
+    "frontend": "tsx src/frontend-server.ts",
+    "setup": "uv venv .venv --python 3.14 && uv pip install torch transformers",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
