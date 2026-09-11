@@ -1,0 +1,19 @@
+{
+  "name": "system-hint",
+  "version": "1.0.0",
+  "description": "Chapter 2-9: Agent status bar (system hint) techniques, TypeScript + Ollama",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "preview": "tsx src/main.ts --mode preview",
+    "demo": "tsx src/main.ts --mode demo",
+    "single": "tsx src/main.ts --mode single",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

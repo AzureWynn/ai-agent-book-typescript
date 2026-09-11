@@ -1,0 +1,19 @@
+{
+  "name": "prompt-injection",
+  "version": "1.0.0",
+  "description": "Chapter 2-5: prompt injection attack & defense, TypeScript + Ollama",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "all": "tsx src/main.ts --all",
+    "run": "tsx src/main.ts",
+    "list": "tsx src/main.ts --list",
+    "report": "tsx src/main.ts --report",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

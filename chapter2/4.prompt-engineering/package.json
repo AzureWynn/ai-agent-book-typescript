@@ -1,0 +1,18 @@
+{
+  "name": "prompt-engineering",
+  "version": "1.0.0",
+  "description": "Chapter 2-4: prompt engineering ablation (tone / wiki randomization / tool descriptions), τ-bench-like airline env, TypeScript + Ollama",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "all": "tsx src/main.ts --all",
+    "run": "tsx src/main.ts",
+    "report": "tsx src/main.ts --report",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

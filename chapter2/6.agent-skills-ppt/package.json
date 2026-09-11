@@ -1,0 +1,18 @@
+{
+  "name": "agent-skills-ppt",
+  "version": "1.0.0",
+  "description": "Chapter 2-6: progressive disclosure Agent Skills - generate pptx from a paper, TypeScript + Ollama",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "offline": "tsx src/main.ts --offline",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "setup": "uv venv .venv --python 3.14 && uv pip install python-pptx"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

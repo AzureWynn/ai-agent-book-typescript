@@ -200,6 +200,7 @@ while (iteration < maxIterations) {
 - **`unit` 不是必填**：天气工具的 `unit` 默认 celsius。若设成必填，gemma4 会反问"要摄氏度还是华氏度"而不是直接调工具。
 - **新版本 Ollama 默认流式**：`/api/chat` 不带 `stream` 时默认 `stream=true`，非流式必须显式 `stream: false`，否则会拿到 NDJSON 导致解析错误。
 - **code_interpreter 依赖 python3**：本机需要能跑 `python3 -c`；没有的话该工具返回错误，但不影响其余工具。
+- **⚠️ code_interpreter 会真实执行模型生成的 Python**：与官方一致（exec Python）。模型是本地 gemma4、任务是教学性质，但这是真实代码执行——不要把它暴露给不可信输入/远程用户，也不要给它不需要的权限。
 - **并行调用有上限**：一轮多个工具调用会并发执行，注意别一次让模型发几十个（会打爆 API）。
 
 ## 参考

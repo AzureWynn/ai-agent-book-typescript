@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1（本地 LLM 服务部署与工具调用）、2-2（注意力机制可视化）与 2-8（状态栏对照）。
+> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。
 
 ## 目录结构
 
@@ -43,6 +43,24 @@ ai-agent-book/
 │   │   ├── src/               # TS 编排 + SVG 热力图 + 前端
 │   │   ├── py/                # transformers 注意力提取助手
 │   │   └── README.md
+│   ├── 3.kv-cache/            # 实验 2-3：KV Cache 与错误上下文管理模式（已完成）
+│   │   ├── src/               # Ollama 前缀缓存 + 6 种模式
+│   │   └── README.md
+│   ├── 4.prompt-engineering/  # 实验 2-4：提示工程消融实验（已完成）
+│   │   ├── src/               # τ-bench-like 航空域 + 3 轴消融
+│   │   └── README.md
+│   ├── 5.prompt-injection/    # 实验 2-5：提示注入攻防实验（已完成）
+│   │   ├── src/               # 3 攻击 × 4 防御成功率矩阵
+│   │   └── README.md
+│   ├── 6.agent-skills-ppt/    # 实验 2-6：Agent Skills 生成演示文稿（已完成）
+│   │   ├── src/               # 三层渐进式披露 + python-pptx
+│   │   └── README.md
+│   ├── 9.system-hint/         # 实验 2-9：Agent 状态栏技术（已完成）
+│   │   ├── src/               # 5 种状态栏 + 轨迹保存
+│   │   └── README.md
+│   ├── 10.context-compression/ # 实验 2-10：上下文压缩策略对比（已完成）
+│   │   ├── src/               # 6 种策略 + 溢出/压缩比
+│   │   └── README.md
 │   └── README.md              # 章节索引
 └── ...
 ```
@@ -58,6 +76,12 @@ ai-agent-book/
 | [chapter1](chapter1/README.md) | [4.image-gen-workflow](chapter1/4.image-gen-workflow/README.md) | 文生图工作流 vs 原生 | ✅ 完成 | 改写节点(Ollama) + 可插拔生图 |
 | [chapter2](chapter2/README.md) | [1.local-llm-serving](chapter2/1.local-llm-serving/README.md) | 本地 LLM 服务部署与工具调用 | ✅ 完成 | Ollama 原生工具调用 + 流式 ReAct |
 | [chapter2](chapter2/README.md) | [2.attention-visualization](chapter2/2.attention-visualization/README.md) | 注意力机制可视化（2-2）与状态栏对照（2-8） | ✅ 完成 | TS 编排 + transformers 提取 + SVG 热力图 |
+| [chapter2](chapter2/README.md) | [3.kv-cache](chapter2/3.kv-cache/README.md) | KV Cache 与错误上下文管理模式 | ✅ 完成 | Ollama 前缀缓存 + 6 种模式 |
+| [chapter2](chapter2/README.md) | [4.prompt-engineering](chapter2/4.prompt-engineering/README.md) | 提示工程消融实验 | ✅ 完成 | τ-bench-like 航空域 + 3 轴消融 |
+| [chapter2](chapter2/README.md) | [5.prompt-injection](chapter2/5.prompt-injection/README.md) | 提示注入攻防实验 | ✅ 完成 | 3 攻击 × 4 防御成功率矩阵 |
+| [chapter2](chapter2/README.md) | [6.agent-skills-ppt](chapter2/6.agent-skills-ppt/README.md) | Agent Skills 生成演示文稿 | ✅ 完成 | 三层渐进式披露 + python-pptx |
+| [chapter2](chapter2/README.md) | [9.system-hint](chapter2/9.system-hint/README.md) | Agent 状态栏技术 | ✅ 完成 | 5 种状态栏 + 轨迹保存 |
+| [chapter2](chapter2/README.md) | [10.context-compression](chapter2/10.context-compression/README.md) | 上下文压缩策略对比 | ✅ 完成 | 6 种策略 + 溢出/压缩比 |
 
 ## 快速开始
 
@@ -86,6 +110,39 @@ cd chapter2/2.attention-visualization
 npm run setup                     # uv venv + pip install torch transformers
 npm run heatmap                   # 默认提示词热力图 + sink/因果三角统计
 npm run heatmap -- --compare-layers 0 -1   # 第 0 层 vs 最后一层对比
+npm run statusbar                 # 实验 2-8：状态栏对照（约 15 分钟）
+
+# 实验 2-3：KV Cache 与错误上下文管理模式
+cd chapter2/3.kv-cache
+npm install
+npm run compare                   # 6 种模式 + 对比表（约 2-3 分钟）
+npm run report                    # 离线对比（无需模型）
+
+# 实验 2-4：提示工程消融实验
+cd chapter2/4.prompt-engineering
+npm install
+npm run all                       # 6 臂 × 5 任务 + 成功率对比表
+
+# 实验 2-5：提示注入攻防实验
+cd chapter2/5.prompt-injection
+npm install
+npm run all                       # 3 攻击 × 4 防御 + 成功率矩阵
+
+# 实验 2-6：Agent Skills 生成演示文稿（需 Python 3.14 + python-pptx）
+cd chapter2/6.agent-skills-ppt
+npm run setup                     # uv venv + pip install python-pptx
+npm run run                       # 在线：Ollama gemma4 驱动渐进式披露生成 pptx
+
+# 实验 2-9：Agent 状态栏技术
+cd chapter2/9.system-hint
+npm install
+npm run preview                   # 离线预览状态栏
+npm run demo -- basic             # 逐轮展示注入的状态栏
+
+# 实验 2-10：上下文压缩策略对比
+cd chapter2/10.context-compression
+npm install
+npm run experiment                # 6 策略 + 溢出/压缩比对比表
 ```
 
 ## 技术栈
@@ -95,6 +152,12 @@ npm run heatmap -- --compare-layers 0 -1   # 第 0 层 vs 最后一层对比
 - 实验 1-2：LangChain.js + Ollama + SearXNG（本地搜索）
 - 实验 2-1：Ollama 原生 `/api/chat` 工具调用 + 流式 ReAct（无框架）
 - 实验 2-2：TS 编排 + Python(transformers) 提取注意力 + 零依赖 SVG/前端
+- 实验 2-3：Ollama 前缀缓存 + `prompt_eval_duration` 作缓存信号（无框架）
+- 实验 2-4：τ-bench-like 航空域 + 3 轴消融（Ollama 工具调用）
+- 实验 2-5：提示注入攻防矩阵（Ollama 工具调用 + 确定性判定）
+- 实验 2-6：渐进式披露 Agent Skills + python-pptx（Ollama 驱动）
+- 实验 2-9：Agent 状态栏临时注入（Ollama 工具调用）
+- 实验 2-10：上下文压缩策略（mock 搜索 + Ollama 摘要）
 - 详细依赖见各实验 `package.json`
 
 ## 与官方版的差异说明
