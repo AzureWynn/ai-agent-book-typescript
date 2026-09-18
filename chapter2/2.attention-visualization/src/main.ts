@@ -157,7 +157,7 @@ async function main(): Promise<void> {
     await cmdHeatmap(rest);
   } else if (cmd === 'trajectories') {
     await generateTrajectories(ROOT);
-    console.log('\n启动前端查看: npm run frontend  →  http://localhost:5173');
+    console.log('\n启动前端查看: npm run frontend  →  http://localhost:5174');
   } else if (cmd === 'statusbar') {
     const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
     await runStatusBarExperiment(ROOT, `runs/exp2-8-${stamp}`);

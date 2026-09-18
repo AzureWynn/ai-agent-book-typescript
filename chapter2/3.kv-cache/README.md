@@ -50,6 +50,10 @@ npm run report -- --cache-price-ratio 0.5        # 改成本示意计价比例
 
 **结果与可视化**：所有结果 JSON 统一存到 `runs/` 目录；`npm run compare` / `npm run report` 会自动生成 **`runs/report.html`**——一个自包含的零依赖可视化页面（SVG 条形图对比 Cache% / 总时长 / TTFT），浏览器直接打开即可。
 
+## 教学笔记
+
+更详细的白话版讲解（KV Cache 是什么、为什么小改动破坏力大、每种反模式的本质）见 [`KV_CACHE_LEARNING_NOTE.md`](KV_CACHE_LEARNING_NOTE.md)。建议先看这份再看代码。
+
 ## 目录结构
 
 ```

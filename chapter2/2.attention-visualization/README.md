@@ -38,13 +38,17 @@ npm run heatmap -- --no-chat-template    # 不用 chat 模板，看原始 token 
 
 # 4. 前端轨迹可视化
 npm run trajectories   # 生成 5 条分类轨迹（Knowledge/Math/Creative/Reasoning/Code）
-npm run frontend       # http://localhost:5173
+npm run frontend       # http://localhost:5174
 
 # 5. 实验 2-8：状态栏对照实验（双臂 × 3 采样，MPS 上约 15 分钟）
 npm run statusbar      # 结果写入 runs/exp2-8-<时间戳>/
 ```
 
 > `--layer -1` = 最后一层；`--head -1` = 所有头取平均；`--max-new-tokens N` = 先让模型续写 N 个 token，再可视化完整序列（热力图带红虚线标注 prompt/生成分界）。
+
+## 教学笔记
+
+更详细的白话版讲解（热力图怎么看、不同模型有什么区别、为什么不是所有模型都有 Sink）见 [`ATTENTION_LEARNING_NOTE.md`](ATTENTION_LEARNING_NOTE.md)。建议先看这份再看代码。
 
 ## 目录结构
 
