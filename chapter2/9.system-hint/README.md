@@ -1,4 +1,4 @@
-# system-hint —— Agent 状态栏（System Hint）技术（TypeScript + Ollama）
+# system-hint —— Agent 状态栏（System Hint）技术（TypeScript + Ollama）1
 
 对应官方实验 2-9 ★★：**几种好用的 Agent 状态栏技术**（`chapter2/system-hint`）。
 
@@ -52,6 +52,10 @@ npm run demo -- loop               # 防死循环演示（run-tests 反复失败
 ├── package.json
 └── .env.example     # OLLAMA_BASE_URL / MODEL_NAME
 ```
+
+## 教学笔记
+
+更详细的白话版讲解（状态栏不进历史为什么重要、五种技术各自解决什么问题、什么时候该用什么时候不该用）见 [`SYSTEM_HINT_LEARNING_NOTE.md`](SYSTEM_HINT_LEARNING_NOTE.md)。建议先看这份再看代码。
 
 ## 核心实现讲解
 
@@ -126,6 +130,10 @@ buildStatusBar(cfg, state) → "=== SYSTEM STATUS ===\nTime: ...\nCWD: ...\n
 - **`--no-*` 开关**可关掉任意技术看它对状态栏的贡献（preview 里也有说明）。
 - **⚠️ run_command 会真实执行模型生成的 Shell 命令**：`sh -c <command>`，10 秒超时、工作目录限定在项目内。模型是本地 gemma4、任务为教学性质，但这是真实命令执行——不要暴露给不可信输入，也不要放宽 cwd/超时限制。
 - **轨迹离线可看**：`runs/trajectory_*.json` 记录完整执行（历史/工具/TODO/配置）。
+
+## 轨迹可视化
+
+`runs/trajectory_visualization.html` 是一个自包含的可视化页面，展示了所有实验轨迹的对比（工具调用统计、开关对照、逐步明细）。浏览器直接打开即可查看，无需任何依赖。
 
 ## 参考
 

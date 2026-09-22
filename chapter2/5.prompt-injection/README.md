@@ -48,6 +48,10 @@ npm run report                     # 离线汇总 runs/
 
 输出：`runs/injection_<时间戳>.json`（全部轨迹）+ `runs/report.html`（矩阵可视化 + 每组合工具轨迹明细）。
 
+## 教学笔记
+
+更详细的白话版讲解（三种攻击怎么骗 Agent、为什么 D2/D3 只是概率性、D4 为什么是确定性的）见 [`PROMPT_INJECTION_LEARNING_NOTE.md`](PROMPT_INJECTION_LEARNING_NOTE.md)。建议先看这份再看代码。
+
 ## 目录结构
 
 ```

@@ -109,6 +109,10 @@ Agent 在 ReAct 循环里自主决策：先 `read_skill("pptx")` 了解流程 �
 
 **观察**：gemma4 启动时只知道 `pptx` 技能的存在与用途，调用 `read_skill` 后才拿到完整流程（SKILL.md），随后自己规划大纲并生成真实 pptx——**渐进式披露成功**。离线模式用预置大纲走同一工具通道，确定性复现。
 
+## 教学笔记
+
+更详细的白话版讲解（为什么 Agent 不该一次性塞所有知识、三层各占多少 token、和 Anthropic Skills 规范的关系）见 [`AGENT_SKILLS_LEARNING_NOTE.md`](AGENT_SKILLS_LEARNING_NOTE.md)。建议先看这份再看代码。
+
 ## 调优记录（踩过的坑）
 
 - **工具参数被截断**：gemma4 单次 tool_call 的参数有长度上限，长 outline（>1500 字符）会被截断导致 JSON 解析失败。对策：SKILL.md 明确要求"outline ≤1000 字符、bullet 用短短语、6-8 页"，并在截断错误时把原因回传给模型让它压缩重试。

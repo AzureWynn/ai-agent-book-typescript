@@ -107,6 +107,10 @@ windowed             ✓      8      1918      15.2%         0         7        
 
 > ⚠️ 单次运行绝对值会波动；相对排序（无压缩溢出 < 压缩后完成 < 各策略体积/信息权衡）才是结论。mock 网页是模板化文本，最终答案质量受限于 mock 数据。
 
+## 教学笔记
+
+更详细的白话版讲解（6 种策略分别是什么意思、为什么 combined 会丢信息、windowed 为什么体积大、和前面实验的关系）见 [`CONTEXT_COMPRESSION_LEARNING_NOTE.md`](CONTEXT_COMPRESSION_LEARNING_NOTE.md)。建议先看这份再看代码。
+
 ## 关键洞察（就是这本书的结论）
 
 1. **无压缩必然溢出** —— 上下文管理是 Agent 的刚需。

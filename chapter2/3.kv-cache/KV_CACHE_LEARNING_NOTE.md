@@ -81,13 +81,28 @@ KV Cache 就是把这些"中间答案"记在本子上。下一轮对话时，如
 
 ### 反模式 3：dynamic_profile ❌
 
-```
-系统提示 + "当前用户额度：5/10"    ← 每轮额度不同！
+**实际代码（`agent.ts:125-130`）：**
+
+```ts
+const credits = Math.floor(Math.random() * 90) + 10;  // 随机 $10 ~ $99
+return { role: 'user', content: `(session context) Account credits: $${credits}.` };
 ```
 
-**问题：额度每轮变化 → 前缀内容变了 → 缓存失效。**
+每轮在对话开头插入一条用户消息，内容是**随机生成的账户额度**：
 
-大白话：就像快递单上的收件地址每封邮件都不同，得重新写全部地址。
+```
+第 1 轮：(session context) Account credits: $47.
+第 2 轮：(session context) Account credits: $12.
+第 3 轮：(session context) Account credits: $83.
+```
+
+**问题：额度是随机数，每轮都不同 → 前缀内容变了 → 缓存失效。**
+
+**类比场景：** 想象一个客服系统，每轮对话前系统都会给用户账户余额贴一个变动标签。客服（Agent）每次看到的余额标签都不同，导致他每次都要重新理解整个对话上下文。
+
+**大白话：** 就像快递单上的"包裹重量"每封邮件都不一样——邮局得重新算全部运费，不能复用之前的计算。
+
+**为什么用"额度"这个例子？** 因为实际业务中确实有这类场景：用户订阅额度、剩余调用次数、账户余额等。这些值每轮都在变，如果塞进系统提示里，KV Cache 就废了。正确做法是把这些信息放在**最后一条消息**里，而不是塞进前缀。
 
 ### 反模式 4：sliding_window ❌
 
@@ -147,6 +162,93 @@ correct:   "You are an assistant... find files" → 缓存 ✓
 ```
 
 哪怕只是加了一个时间戳，哪怕内容看起来"差不多"，缓存就废了。
+
+### 对比：System Hint 为什么不会破坏 KV Cache？
+
+对比 **KV Cache 的 `dynamic_system`** 和 **System Hint 实验（9.system-hint）**：
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  dynamic_system（KV Cache 反模式）                                   │
+│                                                                      │
+│  agent.ts:                                                              │
+│  return `${SYSTEM_PROMPT}[generated_at: ${timestamp}]`;             │
+│                                                                      │
+│  → 时间戳写进 system prompt 本身                                       │
+│  → system prompt 内容变了                                             │
+│  → system prompt 的 KV 全部失效                                      │
+│  → history 也包含这个变化                                             │
+│                                                                      │
+│  结果：整条前缀重新计算，缓存全失                                       │
+├──────────────────────────────────────────────────────────────────┤
+│  System Hint（9.system-hint，本实验）                                   │
+│                                                                      │
+│  agent.ts:                                                              │
+│  const messages = [...history, { role: 'user', content: statusBar }];  │
+│                                                                      │
+│  → system prompt 内容不变（固定）                                       │
+│  → history 不变（状态栏不写入 history）                                │
+│  → 状态栏是末尾临时 user 消息                                         │
+│                                                                      │
+│  结果：前缀命中缓存，只有 ~200 token 状态栏新计算                       │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+**一句话总结：**
+
+```
+改 system prompt = 改旧元素 → 伤根基 → KV 全失
+追加临时 user 消息 = 加新元素 → 加一层壳 → 只算新部分
+```
+
+```
+messages 数组的变化：
+
+dynamic_system： 改原有 system prompt 对象的 content
+  [{ role: 'system', content: '旧内容' }]
+  → [{ role: 'system', content: '新内容（含时间戳）' }]   ← 改旧
+
+System Hint：    在 messages 末尾追加一条新 user 消息
+  [...history, { role: 'system', content: '固定' }]
+  → [...history, { role: 'system', content: '固定' }, { role: 'user', content: '状态栏' }]  ← 加新
+```
+
+| 做法 | 改了什么 | KV Cache 影响 | 历史是否被污染 |
+|------|----------|--------------|---------------|
+| dynamic_system | system prompt 内容变了 | 全部失效 | 是（时间戳成为历史） |
+| System Hint | 末尾追加临时 user 消息 | 只算状态栏 | 否（用完即弃） |
+
+### 为什么 system prompt 不能改？（Chat Template 的角度）
+
+补充一个底层原理：为什么"改一个空格"就导致缓存全失？
+
+```
+API 消息 → Chat Template → 模型 Token 流
+
+API:  { role: "system", content: "你是助手" }
+        ↓ Chat Template 转换
+Token: <|im_start|>system
+你是助手
+<|im_end|>
+
+如果改一个字符：
+API:  { role: "system", content: "你是助手!" }
+        ↓ Chat Template 转换
+Token: <|im_start|>system
+你是助手!
+<|im_end|>   ← "!" 改变了 token 序列
+```
+
+```
+关键原理：
+
+1. Chat Template 把 system 消息转换为固定 token 序列放在最前面
+2. KV Cache 按 token 序列缓存——"你是助手"和"你是助手!"是不同的 token 序列
+3. 一旦不同，第一个不同 token 之后的 KV 全部需要重新计算
+4. 系统提示词越靠前，影响范围越大（可能整个前缀都要重算）
+```
+
+**结论：这不是"经验法则"，而是 Chat Template + KV Cache 机制的必然结果。**
 
 ---
 
@@ -212,3 +314,7 @@ open runs/report.html
 **看完图表问自己：哪种模式最快？为什么？哪种模式最慢？它做了什么"蠢事"？**
 
 答案就在缓存命中率里。
+
+## 延伸阅读
+
+- 官方 Book 上下文工程章节：[chapter2.md](https://github.com/bojieli/ai-agent-book/blob/main/book/chapter2.md) — 深入 Chat Template / Prompt Cache / 消息结构原理

@@ -41,6 +41,10 @@ npm run report                    # 离线汇总 runs/ 下轨迹
 - `runs/ablation_<时间戳>.json` — 全部轨迹（工具调用序列 + reward）
 - `runs/report.html` — 零依赖可视化页面（成功率条形图 + 每任务轨迹明细）
 
+## 教学笔记
+
+更详细的白话版讲解（每个臂是什么意思、为什么结构比语气重要、5 个任务的陷阱在哪）见 [`PROMPT_ENGINEERING_LEARNING_NOTE.md`](PROMPT_ENGINEERING_LEARNING_NOTE.md)。建议先看这份再看代码。
+
 ## 目录结构
 
 ```
