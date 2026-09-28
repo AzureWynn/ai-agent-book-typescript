@@ -1,4 +1,12 @@
-# function-calling —— 纯手写 Function Calling（不依赖 LangChain）
+# function-calling / 纯手写 Function Calling（不依赖 LangChain）
+
+> Chapter 1-0: 纯手写 Function Calling（不依赖 LangChain）
+> 对应《AI Agent 开发实战》第 1 章实验 1-0
+
+← [返回第 1 章目录](../README.md)
+
+## 这个实验在学什么
+
 
 一个**零依赖**（连 mathjs 都不用，只有 typescript + tsx）的 Agent，直接调 Ollama 的 `/api/chat` 接口，完整手写 Function Calling 协议。用来理解：**LangChain 的 `bindTools` / `tool()` 到底替你做了什么**。
 

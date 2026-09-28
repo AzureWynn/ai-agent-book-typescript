@@ -1,0 +1,22 @@
+{
+  "name": "contextual-retrieval",
+  "version": "1.0.0",
+  "description": "Chapter 3-10: Contextual Retrieval - prepend chunk-specific context before indexing, compare plain vs contextual BM25 recall (offline, TypeScript)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "compare": "tsx src/main.ts --mode compare",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ollama": "^0.6.3",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "userId": "test_user",
+  "type": "notes",
+  "updatedAt": "2026-09-22T07:45:57.970Z",
+  "notes": [
+    {
+      "id": "b6ba63b5-12f3-4d1a-8466-0e3ad9d492b0",
+      "content": "User likes coffee",
+      "sessionId": "session-1",
+      "createdAt": "2026-09-22T07:45:57.970Z",
+      "updatedAt": "2026-09-22T07:45:57.970Z",
+      "tags": [
+        "preferences"
+      ]
+    },
+    {
+      "id": "9a255398-ba55-4e7e-9db6-846c74012aad",
+      "content": "User works at TechCorp",
+      "sessionId": "session-1",
+      "createdAt": "2026-09-22T07:45:57.970Z",
+      "updatedAt": "2026-09-22T07:45:57.970Z",
+      "tags": [
+        "work"
+      ]
+    }
+  ],
+  "jsonCards": [],
+  "advancedCards": []
+}

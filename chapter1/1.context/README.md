@@ -1,4 +1,12 @@
-# Chapter 1：上下文感知 Agent 与消融实验
+# context / 上下文感知 Agent 与消融实验
+
+> Chapter 1-1: 上下文感知 Agent 与消融实验
+> 对应《AI Agent 开发实战》第 1 章实验 1-1
+
+← [返回第 1 章目录](../README.md)
+
+## 这个实验在学什么
+
 
 一个基于 LangChain + Ollama 的教学项目，实现了一个"会调用工具的财务分析 Agent"，并用 **5 种消融模式（Ablation Study）** 验证"历史记录、推理、工具调用、工具结果"四种上下文能力对 Agent 完成任务的影响。
 

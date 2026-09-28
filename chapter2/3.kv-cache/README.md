@@ -1,32 +1,15 @@
-# kv-cache —— KV Cache 与错误上下文管理模式（TypeScript + Ollama）
+# kv-cache / KV Cache 与错误上下文管理模式
+
+> Chapter 2-3: KV Cache 与错误上下文管理模式
+> 对应《AI Agent 开发实战》第 2 章实验 2-3
+
+← [返回第 2 章目录](../README.md)
+
+## 这个实验在学什么
 
 对应官方实验 2-3 ★★：**常见的错误上下文管理模式**（`chapter2/kv-cache`）。
 
 本仓库为 **TypeScript 移植版**：用 Ollama 本地模型演示 **KV Cache 在六种上下文实现模式下的利用率差异**——一种正确、五种反模式，看似无害的小改动如何让前缀缓存失效、拖慢延迟并推高成本。
-
-## 这个实验在学什么
-
-**核心：KV Cache 前缀命中取决于"上下文内容是否逐轮稳定"。**
-
-KV Cache 缓存注意力键值对；当对话前缀保持不变时可直接复用，显著减少 prompt 求值计算、改善首 token 延迟（TTFT）。官方用 Moonshot Kimi 上报的 `cached_tokens` 做信号；**Ollama 不上报该字段**，但 `prompt_eval_duration`（prompt 求值时长）在命中前缀缓存时大幅下降（实测 358ms → 71ms）——本移植用它作缓存信号。
-
-```mermaid
-flowchart LR
-    A["每轮构造请求消息"] --> B{"前缀是否逐轮稳定?"}
-    B -- 是 --> C["只求值新增 token<br/>prompt_eval_duration 低"]
-    B -- 否 --> D["整表重算<br/>prompt_eval_duration 高"]
-```
-
-6 种模式（1 正确 + 5 反模式）：
-
-| 模式 | 实现 | 对前缀的影响 |
-| --- | --- | --- |
-| `correct` | 固定 system，消息逐轮追加 | 稳定 → **命中** |
-| `dynamic_system` | system 每轮带时间戳 | 整表重建 → 失效 |
-| `shuffled_tools` | 工具顺序每轮轮转（工具被模板化进 prompt） | 前缀变化 → 失效 |
-| `dynamic_profile` | 前缀插入每轮变化的"用户额度" | 前缀变化 → 失效 |
-| `sliding_window` | 只保留最近 5 条 | 前缀被截断 → 失效 |
-| `text_format` | 历史写成纯文本单条消息 | 序列化格式全变 → 失效 |
 
 ## 快速开始
 

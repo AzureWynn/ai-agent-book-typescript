@@ -1,26 +1,15 @@
-# agent-skills-ppt —— 渐进式披露式 Agent Skills（TypeScript + Ollama）
+# agent-skills-ppt / Agent Skills 生成演示文稿
+
+> Chapter 2-6: Agent Skills 生成演示文稿
+> 对应《AI Agent 开发实战》第 2 章实验 2-6
+
+← [返回第 2 章目录](../README.md)
+
+## 这个实验在学什么
 
 对应官方实验 2-6 ★★：**使用 Agent Skills 从论文生成演示文稿**（`chapter2/agent-skills-ppt`）。
 
 本仓库为 **TypeScript 移植版**：实现三层**渐进式披露（Progressive Disclosure）** 的 Skills 机制——Agent 启动时只看到薄 Skill 目录（元数据），判断任务需要 `pptx` Skill 后才逐层加载完整流程、子文档与捆绑脚本，最终用 python-pptx 生成真实的 `.pptx`。模型用 Ollama gemma4 驱动。
-
-## 这个实验在学什么
-
-**核心：Agent 通过"渐进式披露"按需加载专业领域 Skill 即可完成复杂任务，无需把所有知识一次性塞进系统提示词。**
-
-```mermaid
-flowchart LR
-    L1["第一层 · 元数据<br/>system prompt 只有 Skill 名称+描述"] -->|"Agent 判断需要 pptx"| L2["第二层 · 核心流程<br/>read_skill 加载 SKILL.md"]
-    L2 -->|"需要细则"| L3["第三层 · 细则<br/>read_skill_file 读 reference / 脚本"]
-    L3 -->|"执行"| S["run_skill_script<br/>generate_pptx.py → .pptx"]
-```
-
-| 层 | 内容 | 对应工具 | 上下文占用 |
-| --- | --- | --- | --- |
-| 第一层 | Skill 的 name + description（frontmatter） | 启动时注入 system prompt | ~数百 token |
-| 第二层 | 完整 `SKILL.md`（流程 + 脚本约定） | `read_skill(name)` | 命中才加载 |
-| 第三层 | `reference.md` / 脚本源码 | `read_skill_file(name, path)` | 按需加载 |
-| 执行 | 捆绑脚本生成文件 | `run_skill_script(...)` | 落盘 |
 
 ## 快速开始
 

@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。
+> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。第 3 章实验 3-1 至 3-12（用户记忆系统、Mem0 对比、日志脱敏、稠密嵌入检索、稀疏 BM25 检索、混合检索流水线、结构化索引、Agentic RAG 对比、记忆 Agentic RAG、上下文感知检索、双层用户记忆、隐性知识提取）已完成。第 3 章全部完成。
 
 ## 目录结构
 
@@ -62,6 +62,23 @@ ai-agent-book/
 │   │   ├── src/               # 6 种策略 + 溢出/压缩比
 │   │   └── README.md
 │   └── README.md              # 章节索引
+├── chapter3/                  # 第 3 章：用户记忆和知识库
+│   ├── 1.user-memory/       # 实验 3-1：长期用户记忆系统（已完成）
+│   │   ├── src/               # TypeScript 源码
+│   │   ├── data/              # 记忆和对话存储
+│   │   └── README.md
+│   ├── 2.mem0/              # 实验 3-2：Mem0 + Memobase 对比（已完成）
+│   ├── 3.log-sanitization/  # 实验 3-3：日志脱敏（已完成）
+│   ├── 4.dense-embedding/   # 实验 3-4：稠密嵌入向量检索（已完成）
+│   ├── 5.sparse-embedding/  # 实验 3-5：稀疏向量检索 BM25（已完成）
+│   ├── 6.retrieval-pipeline/ # 实验 3-6：混合检索流水线（已完成）
+│   ├── 7.structured-index/  # 实验 3-7：结构化索引（已完成）
+│   ├── 8.agentic-rag/       # 实验 3-8：Agentic RAG 对比（已完成）
+│   ├── 9.agentic-rag-memory/ # 实验 3-9：记忆 Agentic RAG（已完成）
+│   ├── 10.contextual-retrieval/ # 实验 3-10：上下文感知检索（已完成）
+│   ├── 11.contextual-user-memory/ # 实验 3-11：双层用户记忆（已完成）
+│   ├── 12.knowledge-extraction/ # 实验 3-12：隐性知识提取（已完成）
+│   └── README.md              # 章节索引
 └── ...
 ```
 
@@ -82,6 +99,18 @@ ai-agent-book/
 | [chapter2](chapter2/README.md) | [6.agent-skills-ppt](chapter2/6.agent-skills-ppt/README.md) | Agent Skills 生成演示文稿 | ✅ 完成 | 三层渐进式披露 + python-pptx |
 | [chapter2](chapter2/README.md) | [9.system-hint](chapter2/9.system-hint/README.md) | Agent 状态栏技术 | ✅ 完成 | 5 种状态栏 + 轨迹保存 |
 | [chapter2](chapter2/README.md) | [10.context-compression](chapter2/10.context-compression/README.md) | 上下文压缩策略对比 | ✅ 完成 | 6 种策略 + 溢出/压缩比 |
+| [chapter3](chapter3/README.md) | [1.user-memory](chapter3/1.user-memory/README.md) | 长期用户记忆系统 | ✅ 完成 | Ollama + 分离架构 + 4 种记忆模式 |
+| [chapter3](chapter3/README.md) | [2.mem0](chapter3/2.mem0/README.md) | Mem0 + Memobase 对比 | ✅ 完成 | ADD-only + 四类记忆概念 |
+| [chapter3](chapter3/README.md) | [3.log-sanitization](chapter3/3.log-sanitization/README.md) | 日志脱敏 | ✅ 完成 | 规则引擎 + LLM 引擎，18 类 PII |
+| [chapter3](chapter3/README.md) | [4.dense-embedding](chapter3/4.dense-embedding/README.md) | 稠密嵌入向量检索 | ✅ 完成 | Ollama 嵌入 + ANNOY/HNSW 对比 |
+| [chapter3](chapter3/README.md) | [5.sparse-embedding](chapter3/5.sparse-embedding/README.md) | 稀疏向量检索 BM25 | ✅ 完成 | 纯离线 + 倒排索引 + explain |
+| [chapter3](chapter3/README.md) | [6.retrieval-pipeline](chapter3/6.retrieval-pipeline/README.md) | 混合检索流水线 | ✅ 完成 | RRF/加权融合 + 重排 |
+| [chapter3](chapter3/README.md) | [7.structured-index](chapter3/7.structured-index/README.md) | 结构化索引 | ✅ 完成 | RAPTOR/GraphRAG，纯离线 |
+| [chapter3](chapter3/README.md) | [8.agentic-rag](chapter3/8.agentic-rag/README.md) | Agentic RAG 对比 | ✅ 完成 | 缺口驱动多轮检索，纯离线 |
+| [chapter3](chapter3/README.md) | [9.agentic-rag-memory](chapter3/9.agentic-rag-memory/README.md) | 记忆 Agentic RAG | ✅ 完成 | 会话分块 + 三记忆工具 |
+| [chapter3](chapter3/README.md) | [10.contextual-retrieval](chapter3/10.contextual-retrieval/README.md) | 上下文感知检索 | ✅ 完成 | 前缀双索引对比，纯离线 |
+| [chapter3](chapter3/README.md) | [11.contextual-user-memory](chapter3/11.contextual-user-memory/README.md) | 双层用户记忆 | ✅ 完成 | JSON Cards + 上下文 RAG |
+| [chapter3](chapter3/README.md) | [12.knowledge-extraction](chapter3/12.knowledge-extraction/README.md) | 隐性知识提取 | ✅ 完成 | 因子发现 + 原型聚类 |
 
 ## 快速开始
 

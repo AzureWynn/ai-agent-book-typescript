@@ -1,0 +1,23 @@
+{
+  "name": "knowledge-extraction",
+  "version": "1.0.0",
+  "description": "Chapter 3-12: Extract latent knowledge from cases - factor discovery, structured extraction, archetype clustering, advisory dialogue (offline, TypeScript)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "eval": "tsx src/main.ts --mode eval",
+    "answer": "tsx src/main.ts --mode answer",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ollama": "^0.6.3",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

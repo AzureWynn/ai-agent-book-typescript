@@ -1,30 +1,15 @@
-# prompt-engineering —— 提示工程消融实验（τ-bench-like，TypeScript + Ollama）
+# prompt-engineering / 提示工程消融实验
+
+> Chapter 2-4: 提示工程消融实验
+> 对应《AI Agent 开发实战》第 2 章实验 2-4
+
+← [返回第 2 章目录](../README.md)
+
+## 这个实验在学什么
 
 对应官方实验 2-4 ★★：**提示工程的消融实验**（`chapter2/prompt-engineering`）。
 
 本仓库为 **TypeScript 移植版**：基于 τ-bench（tool-agent-user 交互基准）的航空域环境，用 Ollama gemma4 真实跑 Agent，量化**语气、指令组织、工具描述**三个消融维度对任务成功率的影响。
-
-## 这个实验在学什么
-
-**核心：把 Agent 看成"聪明的新员工"——清晰指令、结构化组织、工具文档决定了它能不能干成事。**
-
-消融框架：6 个臂 × 5 个航空任务，每个臂只改动提示的某一个维度，其余不变，对比客观 reward（0/1）。
-
-| 消融轴 | 做法 | 预期影响 |
-| --- | --- | --- |
-| **语气**（default/trump/casual） | 改系统提示的语气风格 | 成功率影响小 |
-| **Wiki 规则随机化** | 把策略手册打乱成混沌平面列表（去结构、模糊规则、混干扰句） | 指令遵循受损 |
-| **移除工具描述** | 工具与参数描述置空 | 误用工具、完成率下降 |
-| **组合** | 三轴叠加 | 最差 |
-
-```mermaid
-flowchart LR
-    A[任务请求] --> B["Agent（gemma4）<br/>system = 语气 + 策略 wiki + 工具"]
-    B -->|工具调用| C["航空域环境<br/>search/book/carrier/cancel"]
-    C -->|工具结果回灌| B
-    B --> D[轨迹]
-    D --> E["客观 reward（规则判定 0/1）"]
-```
 
 ## 快速开始
 

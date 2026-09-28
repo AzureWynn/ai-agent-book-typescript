@@ -1,25 +1,15 @@
-# attention-visualization —— 注意力机制可视化（TS 编排 + Python 提取）
+# attention-visualization / 注意力机制可视化
+
+> Chapter 2-2: 注意力机制可视化
+> 对应《AI Agent 开发实战》第 2 章实验 2-2
+
+← [返回第 2 章目录](../README.md)
+
+## 这个实验在学什么
 
 对应官方实验 **2-2 ★（注意力机制可视化）与 2-8（状态栏对照）**（官方同目录 `chapter2/attention_visualization`）。
 
 本仓库为 **TypeScript 编排版**：注意力矩阵只能从真实 transformer 前向中拿到，因此用最小 Python 助手（`py/`，transformers）提取矩阵，**CLI / 统计 / 热力图渲染 / 轨迹 / 前端 / 实验 2-8 编排全部用 TS**。模型默认 `Qwen/Qwen3-0.6B`（首次运行下载 ~1.2GB），可用 `.env` 切换。
-
-## 这个实验在学什么
-
-**核心：用真实模型的注意力热力图，亲眼看到第 2 章讲的两个模式。**
-
-```mermaid
-flowchart LR
-    P[提示词] --> X["Python 提取器<br/>transformers + eager 注意力"]
-    X --> M[注意力矩阵]
-    M --> S[TS 统计: sink / 因果三角 / 熵]
-    M --> H[TS 渲染: SVG 热力图 / 前端]
-```
-
-1. **Attention Sink（注意力储存池）**：首 token 吸收每行 75–85% 的注意力。实测 qwen3-0.6b 最后一层 sink 均值 **76.1%**，与书一致。
-2. **因果三角**：每个 token 只 attend 自身及之前的 token，矩阵上三角全为 0。
-3. **分层差异**：第 0 层是局部对角注意力（sink 仅 ~6%），最后一层才出现 sink——这是训练中"注意力储存池"从浅层到深层的演化。
-4. 行 = Query 位置，列 = Key 位置；每行和 ≈ 1。
 
 ## 快速开始
 

@@ -1,29 +1,15 @@
-# context-compression —— 上下文压缩策略对比（TypeScript + Ollama）
+# context-compression / 上下文压缩策略对比
+
+> Chapter 2-10: 上下文压缩策略对比
+> 对应《AI Agent 开发实战》第 2 章实验 2-10
+
+← [返回第 2 章目录](../README.md)
+
+## 这个实验在学什么
 
 对应官方实验 2-10 ★★★：**上下文压缩策略对比**（`chapter2/context-compression`）。
 
 本仓库为 **TypeScript 移植版**：以"调研 OpenAI 联合创始人当前职业归属"为任务，用 Ollama gemma4 对比 **6 种上下文压缩策略**的 token 体积、压缩比、溢出与信息保留。搜索用本地 mock 数据，摘要用 Ollama 完成，`CONTEXT_WINDOW_SIZE` 预算故意收紧使溢出可观察。
-
-## 这个实验在学什么
-
-**核心：上下文窗口变大时，如何高效管理上下文——降成本（token）、降延迟、降溢出、保相关性。** 6 种策略各有权衡：
-
-| 策略 | 做法 | 特点 |
-| --- | --- | --- |
-| `no_compression` | 网页原文直接进上下文 | 基线：体积暴涨，**溢出失败** |
-| `individual` | 每页单独 LLM 摘要再拼接 | 保留页级细节，摘要调用多 |
-| `combined` | 全部页合并后一次摘要 | 全局观好，可能丢页级归属 |
-| `context_aware` | 结合研究问题做聚焦摘要 | 相关性最好，token 最省 |
-| `citations` | context_aware + 来源链接 | 利于追问，稍大 |
-| `windowed` | 最近一次保留全文，更早历史压缩 | 细节与效率折中 |
-
-```mermaid
-flowchart LR
-    P["抓取 N 页（mock）"] --> C["ContextCompressor<br/>按策略决定网页内容的表示"]
-    C --> H["对话历史（体积 = 策略决定）"]
-    H -->|token 估算 > 预算| O["溢出 → 失败"]
-    H -->|未超| A["模型综合最终答案"]
-```
 
 ## 快速开始
 

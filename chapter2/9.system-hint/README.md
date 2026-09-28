@@ -1,29 +1,15 @@
-# system-hint —— Agent 状态栏（System Hint）技术（TypeScript + Ollama）1
+# system-hint / Agent 状态栏技术
+
+> Chapter 2-9: Agent 状态栏技术
+> 对应《AI Agent 开发实战》第 2 章实验 2-9
+
+← [返回第 2 章目录](../README.md)
+
+## 这个实验在学什么
 
 对应官方实验 2-9 ★★：**几种好用的 Agent 状态栏技术**（`chapter2/system-hint`）。
 
 本仓库为 **TypeScript 移植版**：实现 **Agent 状态栏（Status Bar）** 机制——每次调用 LLM 前，把动态状态摘要作为一条**临时 `role=user` 消息**注入上下文末尾，**不写入对话历史**（避免永久污染上下文）。五种技术：时间戳、工具调用计数器、TODO 列表、详细错误、系统状态感知，外加轨迹自动保存。
-
-## 这个实验在学什么
-
-**核心：Agent 状态栏 = 把"当前状态"临时喂给模型，让它每轮都看得见最新进展，又不用背在历史里。**
-
-```mermaid
-flowchart LR
-    A["对话历史"] --> B["构造本轮消息<br/>history + 临时状态栏(user)"]
-    B --> C["LLM 调用"]
-    C -->|工具调用| D["执行工具 + 更新状态<br/>计数器/TODO/错误"]
-    D --> A
-    C -->|最终答复| E["完成 + 存轨迹"]
-```
-
-| 技术 | 作用 | 开关 |
-| --- | --- | --- |
-| **时间戳** | 消息/状态带当前时间，多日场景不丢时间感 | `--no-timestamps` |
-| **工具计数器** | 每个工具调用次数 + 次数过高提醒，抑制死循环 | `--no-counter` |
-| **TODO 列表** | 四态管理（pending/in_progress/completed/cancelled），多步任务不迷路 | `--no-todo` |
-| **详细错误** | 上次错误类型 + 参数 + 修复建议 | `--no-errors` |
-| **系统状态** | 当前目录 / 平台，命令执行有上下文 | `--no-state` |
 
 ## 快速开始
 

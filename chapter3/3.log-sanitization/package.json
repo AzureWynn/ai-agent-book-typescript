@@ -1,0 +1,23 @@
+{
+  "name": "log-sanitization",
+  "version": "1.0.0",
+  "description": "Chapter 3-3: Log Sanitization - regex engine + LLM engine for PII/key detection",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "interactive": "tsx src/main.ts --mode interactive",
+    "llm": "tsx src/main.ts --mode llm",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "openai": "^4.73.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

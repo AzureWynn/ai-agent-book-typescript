@@ -1,4 +1,12 @@
-# web-search-agent —— 联网搜索 Agent（TypeScript 练习）
+# web-search-agent / 联网搜索 Agent
+
+> Chapter 1-2: 联网搜索 Agent
+> 对应《AI Agent 开发实战》第 1 章实验 1-2
+
+← [返回第 1 章目录](../README.md)
+
+## 这个实验在学什么
+
 
 一个自带联网搜索能力的 Agent：本地 LLM（Ollama）在思考过程中**自主决定何时调用 `web_search` 工具**，通过自部署的 **SearXNG** 搜索实时信息、迭代多轮，最后综合给出答案。
 

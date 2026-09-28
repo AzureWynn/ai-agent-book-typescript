@@ -1,4 +1,12 @@
-# search-codegen —— 托管工具 Agent（web_search + code_interpreter）
+# search-codegen / 托管工具 Agent
+
+> Chapter 1-3: 托管工具 Agent
+> 对应《AI Agent 开发实战》第 1 章实验 1-3
+
+← [返回第 1 章目录](../README.md)
+
+## 这个实验在学什么
+
 
 对应官方实验 1-3：托管 `web_search` + 托管 `code_interpreter` 的深度研究 Agent。
 

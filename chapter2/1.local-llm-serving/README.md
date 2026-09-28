@@ -1,8 +1,9 @@
-# local-llm-serving —— 本地 LLM 服务部署与工具调用（TypeScript 移植版）
+# local-llm-serving / 本地 LLM 服务部署与工具调用（TypeScript 移植版）
 
-对应官方实验 2-1 ★：**本地 LLM 服务部署与工具调用**（`chapter2/local_llm_serving`）。
+> Chapter 2-1: 本地 LLM 服务部署与工具调用，用 Ollama 原生 `/api/chat` 协议实现跨工具 Agent
+> 对应《AI Agent 开发实战》第 2 章实验 2-1
 
-本仓库为 **TypeScript 移植版**：用 Ollama 原生 `/api/chat` 工具调用协议实现一个跨工具 Agent，内置 5 个工具（天气 / 时间 / 汇率 / PDF / 代码解释器），支持单任务与交互模式、流式输出（含思考过程）。无需云端 API Key。
+← [返回第 2 章目录](../README.md)
 
 ## 这个实验在学什么
 
