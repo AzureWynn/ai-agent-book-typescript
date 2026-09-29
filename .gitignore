@@ -15,6 +15,7 @@ node_modules/
 # 构建产物
 dist/
 *.tsbuildinfo
+__pycache__/
 
 # 日志
 *.log

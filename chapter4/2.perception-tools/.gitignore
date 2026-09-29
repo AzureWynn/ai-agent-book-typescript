@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+runs/
+dist/
+out/
+catalog_receipt.json
+workspace/.trash/
