@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。第 3 章实验 3-1 至 3-12（用户记忆系统、Mem0 对比、日志脱敏、稠密嵌入检索、稀疏 BM25 检索、混合检索流水线、结构化索引、Agentic RAG 对比、记忆 Agentic RAG、上下文感知检索、双层用户记忆、隐性知识提取）已完成。第 3 章全部完成。第 4 章实验 4-1、4-2、4-3、4-4、4-5（主动工具发现、感知工具 MCP 服务器、多模态三种范式对比、执行工具 MCP 服务器、协作工具 MCP 服务器）已完成。第 4 章全部完成。
+> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。第 3 章实验 3-1 至 3-12（用户记忆系统、Mem0 对比、日志脱敏、稠密嵌入检索、稀疏 BM25 检索、混合检索流水线、结构化索引、Agentic RAG 对比、记忆 Agentic RAG、上下文感知检索、双层用户记忆、隐性知识提取）已完成。第 3 章全部完成。第 4 章实验 4-1、4-2、4-3、4-4、4-5（主动工具发现、感知工具 MCP 服务器、多模态三种范式对比、执行工具 MCP 服务器、协作工具 MCP 服务器）已完成。第 4 章全部完成。第 5 章 Starter 最小 Coding Agent 及实验 5-4、5-3、5-10、5-13、5-16、5-14、5-12、5-2、5-5、5-1、5-11、5-15、5-9、5-8、5-6（七工具主循环、逻辑谜题约束求解、代码辅助数学解题、自适应日志解析、ERP 自然语言转 SQL、Agent 造 Agent、对话式 UI 定制、动态表单意图澄清、流式中断接续、小模型代码化规则、跨厂商轨迹接管、日志诊断与回归、权限内嵌数据对象、CAD 参数化精度、自然语言视频剪辑、论文转幻灯片）已完成；5-7（论文转视频）因需外部 TTS 服务暂缓。
 
 ## 目录结构
 
@@ -89,6 +89,24 @@ ai-agent-book/
 │   │   ├── workspace/         # 沙盒根目录（演示文档）
 │   │   └── README.md
 │   └── README.md              # 章节索引
+├── chapter5/                  # 第 5 章：Coding Agent 与代码生成
+│   ├── 0.coding-agent/   # Starter：最小 Coding Agent（已完成）
+│   ├── 1.trajectory-handoff/  # 实验 5-1：跨厂商轨迹接管（已完成）
+│   ├── 2.output-resume/  # 实验 5-2：流式中断接续（已完成）
+│   ├── 5.codified-rules/  # 实验 5-5：小模型代码化规则（已完成）
+│   ├── 11.log-diagnosis/  # 实验 5-11：日志诊断与回归（已完成）
+│   ├── 15.permission-objects/  # 实验 5-15：权限内嵌数据对象（已完成）
+│   ├── 9.cad-precision/  # 实验 5-9：CAD 参数化精度（已完成）
+│   ├── 8.video-edit/  # 实验 5-8：自然语言视频剪辑（已完成）
+│   ├── 6.paper-to-ppt/  # 实验 5-6：论文转幻灯片（已完成）
+│   ├── 4.code-for-logic/   # 实验 5-4：逻辑谜题约束求解（已完成）
+│   ├── 3.code-for-math/    # 实验 5-3：代码辅助数学解题（已完成）
+│   ├── 10.adaptive-log-parser/  # 实验 5-10：自适应日志解析（已完成）
+│   ├── 13.erp-agent/  # 实验 5-13：ERP 自然语言转 SQL（已完成）
+│   ├── 16.agent-creator/  # 实验 5-16：Agent 造 Agent（已完成）
+│   ├── 14.conversational-ui/  # 实验 5-14：对话式 UI 定制（已完成）
+│   ├── 12.dynamic-form/  # 实验 5-12：动态表单意图澄清（已完成）
+│   └── README.md              # 章节索引
 └── ...
 ```
 
@@ -126,6 +144,22 @@ ai-agent-book/
 | [chapter4](chapter4/README.md) | [3.multimodal-agent](chapter4/3.multimodal-agent/README.md) | 多模态三种范式对比 | ✅ 完成 | SVG 测量 + Ollama |
 | [chapter4](chapter4/README.md) | [4.execution-tools](chapter4/4.execution-tools/README.md) | 执行工具 MCP 服务器 | ✅ 完成 | 分层安检 + 审批校验 |
 | [chapter4](chapter4/README.md) | [5.collaboration-tools](chapter4/5.collaboration-tools/README.md) | 协作工具 MCP 服务器 | ✅ 完成 | 子Agent/HITL/通知/定时 |
+| [chapter5](chapter5/README.md) | [0.coding-agent](chapter5/0.coding-agent/README.md) | 最小 Coding Agent | ✅ 完成 | 七工具 + 主循环 |
+| [chapter5](chapter5/README.md) | [1.trajectory-handoff](chapter5/1.trajectory-handoff/README.md) | 跨厂商轨迹接管 | ✅ 完成 | 三臂切换 + 中立格式 |
+| [chapter5](chapter5/README.md) | [2.output-resume](chapter5/2.output-resume/README.md) | 流式中断接续 | ✅ 完成 | 真流掐断 + 三策略对照 |
+| [chapter5](chapter5/README.md) | [5.codified-rules](chapter5/5.codified-rules/README.md) | 小模型代码化规则 | ✅ 完成 | 配对 8 题 + 服务端校验 |
+| [chapter5](chapter5/README.md) | [11.log-diagnosis](chapter5/11.log-diagnosis/README.md) | 日志诊断与回归 | ✅ 完成 | 诊断 + 重放翻转 |
+| [chapter5](chapter5/README.md) | [15.permission-objects](chapter5/15.permission-objects/README.md) | 权限内嵌数据对象 | ✅ 完成 | 六层强制 + 8 攻击拦截 |
+| [chapter5](chapter5/README.md) | [9.cad-precision](chapter5/9.cad-precision/README.md) | CAD 参数化精度 | ✅ 完成 | CadQuery + 零漂移 |
+| [chapter5](chapter5/README.md) | [8.video-edit](chapter5/8.video-edit/README.md) | 自然语言视频剪辑 | ✅ 完成 | Vision 定位 + 审核闭环 |
+| [chapter5](chapter5/README.md) | [6.paper-to-ppt](chapter5/6.paper-to-ppt/README.md) | 论文转幻灯片 | ✅ 完成 | 单/双臂对照 + Vision 评分 |
+| [chapter5](chapter5/README.md) | [4.code-for-logic](chapter5/4.code-for-logic/README.md) | 逻辑谜题约束求解 | ✅ 完成 | 约束穷举 + Ollama 对照 |
+| [chapter5](chapter5/README.md) | [3.code-for-math](chapter5/3.code-for-math/README.md) | 代码辅助数学解题 | ✅ 完成 | 沙箱执行 + 双模式对照 |
+| [chapter5](chapter5/README.md) | [10.adaptive-log-parser](chapter5/10.adaptive-log-parser/README.md) | 自适应日志解析 | ✅ 完成 | 代码生成 + 热更新 |
+| [chapter5](chapter5/README.md) | [13.erp-agent](chapter5/13.erp-agent/README.md) | ERP 自然语言转 SQL | ✅ 完成 | SQLite + artifact 模式 |
+| [chapter5](chapter5/README.md) | [16.agent-creator](chapter5/16.agent-creator/README.md) | Agent 造 Agent | ✅ 完成 | 双臂生成 + 六道门禁 |
+| [chapter5](chapter5/README.md) | [14.conversational-ui](chapter5/14.conversational-ui/README.md) | 对话式 UI 定制 | ✅ 完成 | React 整文件改写 + 构建验证 |
+| [chapter5](chapter5/README.md) | [12.dynamic-form](chapter5/12.dynamic-form/README.md) | 动态表单意图澄清 | ✅ 完成 | 级联表单 + jsdom 真执行 |
 
 ## 快速开始
 

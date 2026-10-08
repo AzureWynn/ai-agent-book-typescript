@@ -1,0 +1,24 @@
+{
+  "name": "permission-objects",
+  "version": "1.0.0",
+  "description": "Chapter 5-15: permission-embedded data objects - generated code free, data layer enforced (TypeScript + Ollama + SQLite)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "eval": "tsx src/main.ts --mode eval",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ollama": "^0.6.3",
+    "dotenv": "^16.3.0",
+    "better-sqlite3": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@types/better-sqlite3": "^7.6.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

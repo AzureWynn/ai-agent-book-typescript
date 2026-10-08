@@ -1,0 +1,22 @@
+{
+  "name": "video-edit",
+  "version": "1.0.0",
+  "description": "Chapter 5-8: NL video edit - synthetic 4-scene clip, two-step Vision locate, ffmpeg cut, Reviewer loop (TypeScript + Ollama)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "eval": "tsx src/main.ts --mode eval",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ollama": "^0.6.3",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

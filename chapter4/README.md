@@ -9,7 +9,6 @@
 | 实验 | 主题 | 状态 | 技术栈 |
 | --- | --- | --- | --- |
 | [1.active-tool-discovery](1.active-tool-discovery/README.md) | 实验 4-1：主动工具发现 | ✅ 完成 | TypeScript + 三服务器直连 + 双臂对照 |
-| [1.active-tool-discovery](1.active-tool-discovery/README.md) | 实验 4-1：主动工具发现 | ✅ 完成 | TypeScript + 三服务器直连 + 双臂对照 |
 | [2.perception-tools](2.perception-tools/README.md) | 实验 4-2：感知工具 MCP 服务器 | ✅ 完成 | TypeScript + MCP SDK + Ollama Agent |
 | [3.multimodal-agent](3.multimodal-agent/README.md) | 实验 4-3：多模态三种范式对比 | ✅ 完成 | TypeScript + SVG 几何测量 + Ollama |
 | [4.execution-tools](4.execution-tools/README.md) | 实验 4-4：执行工具 MCP 服务器 | ✅ 完成 | TypeScript + 分层安检 + 审批校验 |

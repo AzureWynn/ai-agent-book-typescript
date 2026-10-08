@@ -1,0 +1,23 @@
+{
+  "name": "paper-to-ppt",
+  "version": "1.0.0",
+  "description": "Chapter 5-6: paper to slides - single vs dual agent on pinned Attention paper, matplotlib slides, Vision scoring (TypeScript + Ollama)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "eval": "tsx src/main.ts --mode eval",
+    "prep": "tsx src/prep.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ollama": "^0.6.3",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "erp-agent",
+  "version": "1.0.0",
+  "description": "Chapter 5-13: ERP Agent - Chinese NL to SQL with artifact mode on SQLite (TypeScript)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "eval": "tsx src/main.ts --mode eval",
+    "gold": "tsx src/main.ts --mode gold",
+    "ask": "tsx src/main.ts --mode ask",
+    "initdb": "tsx src/main.ts --mode initdb",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "ollama": "^0.6.3",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

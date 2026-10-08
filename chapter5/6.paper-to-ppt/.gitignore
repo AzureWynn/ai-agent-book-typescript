@@ -1,0 +1,5 @@
+output/
+node_modules/
+paper/*.pdf
+paper/*.png
+.venv/

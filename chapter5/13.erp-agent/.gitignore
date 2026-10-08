@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+runs/
+dist/
+out/
+*.db
+*.db-journal

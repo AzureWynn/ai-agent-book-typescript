@@ -1,0 +1,23 @@
+.page {
+  font-family: system-ui, sans-serif;
+  max-width: 480px;
+  margin: 60px auto;
+  text-align: center;
+}
+.title {
+  font-size: 28px;
+  color: #111111;
+}
+.subtitle {
+  font-size: 14px;
+  color: #666666;
+}
+.btn {
+  font-size: 16px;
+  padding: 8px 20px;
+  background: #888888;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

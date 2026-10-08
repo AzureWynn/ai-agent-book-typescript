@@ -1,0 +1,24 @@
+{
+  "name": "dynamic-form",
+  "version": "1.0.0",
+  "description": "Chapter 5-12: dynamic form - NL request to cascading HTML form, jsdom submit, JSON back to agent (TypeScript + Ollama)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --mode demo",
+    "eval": "tsx src/main.ts --mode eval",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.0",
+    "jsdom": "^26.0.0",
+    "ollama": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^30.0.0",
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}
