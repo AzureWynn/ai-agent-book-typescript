@@ -5,6 +5,7 @@
 // Ollama 做真实的 ReAct（工具调用）处理。
 
 import ollama from 'ollama';
+import type { Message } from 'ollama';
 import type { AgentEvent } from './events.js';
 import { EventType } from './events.js';
 import { executeTool, toolDefinitions } from './tools.js';
@@ -52,7 +53,7 @@ export class EventAgent {
   }
 
   private async onlineHandle(event: AgentEvent): Promise<string> {
-    const messages: ollama.Message[] = [
+    const messages: Message[] = [
       { role: 'system', content: SYSTEM_PROMPT },
       {
         role: 'user',
@@ -80,7 +81,8 @@ export class EventAgent {
         const args = (fn.arguments ?? {}) as Record<string, unknown>;
         const result = await executeTool(fn.name, args, event);
         console.log(`   ↳ 调用工具 ${fn.name} -> ${result.slice(0, 120)}`);
-        messages.push({ role: 'tool', content: result, tool_call_id: call.id ?? '' });
+        // ollama 的 ToolCall 类型只有 function（无 id），用工具名做关联标识
+        messages.push({ role: 'tool', content: result, tool_name: fn.name });
       }
     }
     return '(达到最大工具轮数，未给出最终回复)';

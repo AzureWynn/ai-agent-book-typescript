@@ -1,0 +1,6 @@
+.venv/
+output/
+node_modules/
+*.wav
+*.aiff
+*.aac

@@ -11,7 +11,7 @@
 
 每个章节一个独立目录；每章内部按实验再分子目录，各实验自带 `package.json` 与依赖，可单独运行。
 
-> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。第 3 章实验 3-1 至 3-12（用户记忆系统、Mem0 对比、日志脱敏、稠密嵌入检索、稀疏 BM25 检索、混合检索流水线、结构化索引、Agentic RAG 对比、记忆 Agentic RAG、上下文感知检索、双层用户记忆、隐性知识提取）已完成。第 3 章全部完成。第 4 章实验 4-1、4-2、4-3、4-4、4-5（主动工具发现、感知工具 MCP 服务器、多模态三种范式对比、执行工具 MCP 服务器、协作工具 MCP 服务器）已完成。第 4 章全部完成。第 5 章 Starter 最小 Coding Agent 及实验 5-4、5-3、5-10、5-13、5-16、5-14、5-12、5-2、5-5、5-1、5-11、5-15、5-9、5-8、5-6（七工具主循环、逻辑谜题约束求解、代码辅助数学解题、自适应日志解析、ERP 自然语言转 SQL、Agent 造 Agent、对话式 UI 定制、动态表单意图澄清、流式中断接续、小模型代码化规则、跨厂商轨迹接管、日志诊断与回归、权限内嵌数据对象、CAD 参数化精度、自然语言视频剪辑、论文转幻灯片）已完成；5-7（论文转视频）因需外部 TTS 服务暂缓。
+> 目前进度：完成第 1 章实验 1-1 至 1-4（上下文 Agent、联网搜索、托管工具、文生图工作流），及手写 Function Calling 练习；第 2 章实验 2-1、2-2+2-8、2-3、2-4、2-5、2-6、2-9、2-10（本地 LLM 服务、注意力可视化+状态栏对照、KV Cache、提示工程消融、提示注入攻防、Agent Skills、Agent 状态栏、上下文压缩）。第 2 章全部完成。第 3 章实验 3-1 至 3-12（用户记忆系统、Mem0 对比、日志脱敏、稠密嵌入检索、稀疏 BM25 检索、混合检索流水线、结构化索引、Agentic RAG 对比、记忆 Agentic RAG、上下文感知检索、双层用户记忆、隐性知识提取）已完成。第 3 章全部完成。第 4 章实验 4-1、4-2、4-3、4-4、4-5（主动工具发现、感知工具 MCP 服务器、多模态三种范式对比、执行工具 MCP 服务器、协作工具 MCP 服务器）已完成。第 4 章全部完成。第 5 章 Starter 最小 Coding Agent 及实验 5-4、5-3、5-10、5-13、5-16、5-14、5-12、5-2、5-5、5-1、5-11、5-15、5-9、5-8、5-6（七工具主循环、逻辑谜题约束求解、代码辅助数学解题、自适应日志解析、ERP 自然语言转 SQL、Agent 造 Agent、对话式 UI 定制、动态表单意图澄清、流式中断接续、小模型代码化规则、跨厂商轨迹接管、日志诊断与回归、权限内嵌数据对象、CAD 参数化精度、自然语言视频剪辑、论文转幻灯片）已完成；5-7（论文转视频）因需外部 TTS 服务暂缓。第 6 章实验 6-1、6-2、6-3、6-4（事件驱动 Agent、异步 Agent Flux、同步 vs 异步 vs 中途引导、实时语音链路简化版）已完成；6-5 ~ 6-14 依赖音频输入模型、GPU、真机硬件或厂商凭证，不移植。第 7 章（Agent 的评估）尚未开始，README 已建可行性评估表；第 8～10 章（模型后训练 / 持续进化 / 多 Agent 协作）README 骨架与可行性评估已建，其中第 8 章因需 GPU 训练不移植实机实验。
 
 ## 目录结构
 
@@ -107,6 +107,20 @@ ai-agent-book/
 │   ├── 14.conversational-ui/  # 实验 5-14：对话式 UI 定制（已完成）
 │   ├── 12.dynamic-form/  # 实验 5-12：动态表单意图澄清（已完成）
 │   └── README.md              # 章节索引
+├── chapter6/                  # 第 6 章：交互——观察与动作空间的扩展
+│   ├── 1.event-trigger-agent/  # 实验 6-1：事件驱动 Agent（已完成）
+│   ├── 2.async-agent/  # 实验 6-2：异步 Agent（Flux）（已完成）
+│   ├── 3.async-steering/  # 实验 6-3：同步 vs 异步 vs 中途引导（已完成）
+│   ├── 4.live-audio/  # 实验 6-4：实时语音链路（简化版）（已完成）
+│   └── README.md              # 章节索引（含官方 14 实验可行性评估）
+├── chapter7/                  # 第 7 章：Agent 的评估（待开始）
+│   └── README.md              # 可行性评估：14 实验，7-8/7-10 建议优先
+├── chapter8/                  # 第 8 章：模型后训练（不移植实机训练）
+│   └── README.md              # 可行性评估：19 实验需 GPU，仅数据侧切口
+├── chapter9/                  # 第 9 章：Agent 的持续进化（待开始）
+│   └── README.md              # 可行性评估：9 实验，9-1/9-6 建议优先
+├── chapter10/                 # 第 10 章：多 Agent 协作（待开始）
+│   └── README.md              # 可行性评估：6 项目，10-1/10-2 建议优先
 └── ...
 ```
 
@@ -160,6 +174,10 @@ ai-agent-book/
 | [chapter5](chapter5/README.md) | [16.agent-creator](chapter5/16.agent-creator/README.md) | Agent 造 Agent | ✅ 完成 | 双臂生成 + 六道门禁 |
 | [chapter5](chapter5/README.md) | [14.conversational-ui](chapter5/14.conversational-ui/README.md) | 对话式 UI 定制 | ✅ 完成 | React 整文件改写 + 构建验证 |
 | [chapter5](chapter5/README.md) | [12.dynamic-form](chapter5/12.dynamic-form/README.md) | 动态表单意图澄清 | ✅ 完成 | 级联表单 + jsdom 真执行 |
+| [chapter6](chapter6/README.md) | [1.event-trigger-agent](chapter6/1.event-trigger-agent/README.md) | 事件驱动 Agent | ✅ 完成 | 定时器/HTTP 事件 → 队列 → ReAct |
+| [chapter6](chapter6/README.md) | [2.async-agent](chapter6/2.async-agent/README.md) | 异步 Agent（Flux） | ✅ 完成 | 并行/打断/检查点持久化 |
+| [chapter6](chapter6/README.md) | [3.async-steering](chapter6/3.async-steering/README.md) | 同步 vs 异步 vs 中途引导 | ✅ 完成 | 三种等待/恢复语义对照 |
+| [chapter6](chapter6/README.md) | [4.live-audio](chapter6/4.live-audio/README.md) | 实时语音链路（简化版） | ✅ 完成 | ffmpeg + whisper + Ollama + say |
 
 ## 快速开始
 

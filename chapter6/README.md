@@ -6,14 +6,20 @@
 
 ## 官方实验与本仓库可行性对照
 
-官方共 14 个实验（6-1 ~ 6-14）+ 附加 phone-agent。本仓库评估结论：**核心三连（6-1/6-2/6-3）纯 Ollama + TS 可实现；6-4 语音链路可做简化教学版；6-5 ~ 6-14 依赖音频输入模型、GPU、真机硬件或厂商凭证，不移植（6-10 ~ 6-14 机器人实验另附原理说明）。**
+官方共 14 个实验（6-1 ~ 6-14）+ 附加 phone-agent。本仓库评估结论：**核心三连（6-1/6-2/6-3）已完成并实测通过；6-4 语音链路简化教学版已完成；6-5 ~ 6-14 依赖音频输入模型、GPU、真机硬件或厂商凭证，不移植（6-10 ~ 6-14 机器人实验另附原理说明）。**
+
+本章四个已完成实验的实测记录（`gemma4`，Ollama 本地）：
+- 6-1：定时器事件注入 → 队列 → 唤醒 Agent → 真实工具调用 `run_backup_check`，12s循环内 `processed=1 dropped=0`
+- 6-2：并行/打断离线演示 + 检查点跨会话恢复（轨迹 3→3 一致，两个运行中任务标记 `suspended` 并保留进度）
+- 6-3：中途引导场景下验收三项全过（引用回执、选择场地 B、标注source）
+- 6-4：录音 → whisper ASR → 模型 → macOS say 双臂跑通（ASR 1.72~2.11s / LLM 12.64s / TTS 1.62s，成片 3.66s）
 
 | 实验 | 主题 | 可行性 | 状态 | 技术栈 |
 | --- | --- | --- | --- | --- |
-| [1.event-trigger-agent](1.event-trigger-agent/README.md) | 实验 6-1：事件驱动 Agent | 🟢 Ollama+TS | 🚧 计划 | HTTP/定时器事件 → 事件队列 → ReAct |
+| [1.event-trigger-agent](1.event-trigger-agent/README.md) | 实验 6-1：事件驱动 Agent | 🟢 Ollama+TS | ✅ 完成 | HTTP/定时器事件 → 事件队列 → ReAct |
 | [2.async-agent](2.async-agent/README.md) | 实验 6-2：异步 Agent（Flux） | 🟢 Ollama+TS | ✅ 完成 | Promise 并行工具 + 打断/取消 + 检查点持久化 |
-| [3.async-steering](3.async-steering/README.md) | 实验 6-3：同步 vs 原生异步 vs 中途引导 | 🟢 Ollama+TS | 🚧 计划 | 三种等待/恢复语义对照 |
-| [4.live-audio](4.live-audio/README.md) | 实验 6-4：实时语音链路（简化版） | 🟡 简化教学版 | 🚧 计划 | ffmpeg 录音 + faster-whisper + Ollama + say |
+| [3.async-steering](3.async-steering/README.md) | 实验 6-3：同步 vs 原生异步 vs 中途引导 | 🟢 Ollama+TS | ✅ 完成 | 三种等待/恢复语义对照 |
+| [4.live-audio](4.live-audio/README.md) | 实验 6-4：实时语音链路（简化版） | 🟡 简化教学版 | ✅ 完成 | ffmpeg 录音 + faster-whisper + Ollama + macOS say |
 | — | 实验 6-5 流式语音（Qwen2-Audio） | 🔴 Ollama 无音频输入模型 | 不移植 | — |
 | — | 实验 6-6 端到端语音（MiniCPM-o） | 🔴 需 GPU 单卡 | 不移植 | — |
 | — | 实验 6-7 可控 TTS 盲评（Fish Audio） | 🟡 云端服务 | 不移植 | — |
@@ -57,12 +63,15 @@ npm run eval                    # 同步 vs 原生异步 vs 中途引导对照�
 
 # 语音链路简化版（6-4）
 cd 4.live-audio
-npm run setup                   # python3 venv + faster-whisper（首次下载模型 ~400MB）
-npm run demo                    # 录 3 秒 → ASR → Ollama → say 朗读（需 Ollama + 麦克风）
-npm run demo -- --offline       # 离线：用预设音频/文本，不录音
+npm install
+python3 -m venv .venv && .venv/bin/pip install faster-whisper "av<19"
+npm run setup                   # 环境自检
+npm run offline                 # 离线臂：预置音频 → ASR → 模板 → TTS（无需麦克风）
+npm run demo                    # 在线臂：录 5 秒 → ASR → gemma4 → say（需麦克风）
+npm run eval                    # 双臂耗时对照表
 ```
 
-> 各实验使用 Ollama 本地模型（默认 gemma4:latest），`.env` 各自独立。
+> 各实验使用 Ollama 本地模型（默认 gemma4:latest），`.env` 各自独立。6-4 额外依赖 macOS 系统命令 `say`/`afplay`（中文音色 9 个）与 faster-whisper，Linux/容器不可直接运行。
 
 ## 机器人实验（6-10 ~ 6-14）原理一句话
 
