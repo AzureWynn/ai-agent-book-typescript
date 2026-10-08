@@ -1,0 +1,20 @@
+{
+  "name": "event-trigger-agent",
+  "version": "1.0.0",
+  "description": "Chapter 6-1: event-driven agent - external events (timers/HTTP/file) wake the agent through a unified event queue (TypeScript)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "tsx src/main.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.0",
+    "ollama": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

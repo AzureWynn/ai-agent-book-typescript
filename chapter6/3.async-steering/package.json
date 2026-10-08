@@ -1,0 +1,23 @@
+{
+  "name": "async-steering",
+  "version": "1.0.0",
+  "description": "Chapter 6-3: sync vs native-async vs mid-turn steering comparison on a controlled venue task (TypeScript + Ollama)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "eval": "tsx src/main.ts",
+    "sync": "tsx src/main.ts sync",
+    "async": "tsx src/main.ts async",
+    "steer": "tsx src/main.ts steer",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.0",
+    "ollama": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

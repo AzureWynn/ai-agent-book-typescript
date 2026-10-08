@@ -22,3 +22,7 @@ __pycache__/
 
 # 运行时生成的演示数据
 chapter3/1.user-memory/data/conversations/
+
+# 官方书稿 PDF（受版权保护，不入库）
+*.pdf
+!chapter*/**/*.pdf

@@ -14,6 +14,7 @@
 | [4.prompt-engineering](4.prompt-engineering/README.md) | 实验 2-4：提示工程消融实验 | ✅ 完成 | τ-bench-like 航空域 + 3 轴消融 |
 | [5.prompt-injection](5.prompt-injection/README.md) | 实验 2-5：提示注入攻防实验 | ✅ 完成 | 3 攻击 × 4 防御成功率矩阵 |
 | [6.agent-skills-ppt](6.agent-skills-ppt/README.md) | 实验 2-6：Agent Skills 生成演示文稿 | ✅ 完成 | 三层渐进式披露 + python-pptx |
+| [7.writing-skill](7.writing-skill/README.md) | 实验 2-7：从个人范文创建「去 AI 味」写作 Skill | 🚧 设计文档 | Skill 蒸馏 + before/after 迭代回写 |
 | [9.system-hint](9.system-hint/README.md) | 实验 2-9：Agent 状态栏技术 | ✅ 完成 | 5 种状态栏 + 轨迹保存 |
 | [10.context-compression](10.context-compression/README.md) | 实验 2-10：上下文压缩策略对比 | ✅ 完成 | 6 种策略 + 溢出/压缩比对比 |
 
